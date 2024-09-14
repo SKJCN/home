@@ -1,56 +1,525 @@
 <!Doctype HTML>
 <html>
     <head>
-        <title>New page</title>
+        <title>Packages</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel|Fauna+One">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral|Rubik">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Lora">
+        <!-- Styles -->
         <style>
-            .main_page{
-                background-color: black;
-                height: 1000px;
+            body {
+                font-family: 'Fauna One', serif;
             }
 
-            /* logo */
-            .logo{
-                background-color: lightpink;
-                width: 100%;
-                height: 500px;
-            }
-            .logo_bar{
-                width: 60%;
-                height: 100%;
+
+            .main{
+                width: 1200px;
+                height: 600px;
+                background-color: pink;
+                /* background-image: url('bg5.jpg'); 7280 - 4080 */
+                background-size: 1092px;
                 margin: auto;
-                background-color: lightgoldenrodyellow;
+            }
+            .content{
+                width: 1100px;
+                height: 550px;
+                background-color: lightgreen;
+                margin: auto;
+            }
+            .img_content{
+                width: 700px;
+                height: 550px;
+                background-color: gray;
+                position: relative;
+                opacity: 1;
+                float: left;
+            }
+            .descript_content{
+                width: 400px;
+                height: 550px;
+                background-color: lightyellow;
+                float: left;
             }
 
-            /* Pack List */
-            .packages{
-                background-color: darkgrey;
-                width: 100%;
-                height: 400px;
+            .text{
+                width: 190px;
+                height: 190px;
+                background-color: lightblue;
+                position: absolute;
+                top: 150px;
+                left: 208px;
+                border-radius: 200px;
+                z-index: 3;
             }
-            .packlist{
-                background-color: lightcyan;
-                width: 100%;
-                height: 100%;
+            .text_money{
+                width: 150px;
+                height: 95px;
+                background-color: lightgreen;
+                margin: auto;
+                margin-top: 45px;
+            }
+            .text_gst{
+                width: 75px;
+                height: 25px;
+                background-color: lightgoldenrodyellow;
+                position: absolute;
+                right: 30px;
+                bottom: 25px;
+                color: grey;
+                text-align: right;
+                padding-right: 18px;
+
+            }
+            .icon1{
+                width: 151px;
+                height: 151px;
+                /* background-color: lightcoral; */
+                position: absolute;
+                top: 48px;
+                left: 125px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon2{
+                width: 120px;
+                height: 120px;
+                /* background-color: lightcyan; */
+                position: absolute;
+                top: 226px;
+                left: 36px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon3{
+                width: 126px;
+                height: 126px;
+                /* background-color: lightgoldenrodyellow; */
+                position: absolute;
+                top: 289px;
+                left: 161px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon4{
+                width: 110px;
+                height: 110px;
+                /* background-color: lightgray; */
+                position: absolute;
+                top: 285px;
+                left: 340px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon5{
+                width: 122px;
+                height: 122px;
+                /* background-color: lightgreen; */
+                position: absolute;
+                top: 249px;
+                right: 85px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon6{
+                width: 130px;
+                height: 130px;
+                background-color: whitesmoke;
+                position: absolute;
+                bottom: 60px;
+                left: 60px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon7{
+                width: 110px;
+                height: 110px;
+                /* background-color: lightsalmon; */
+                position: absolute;
+                top: 163px;
+                right: 119px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon8{
+                width: 150px;
+                height: 50px;
+                background-color: whitesmoke;
+                position: absolute;
+                top: 100px;
+                right: 170px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon9{
+                width: 150px;
+                height: 70px;
+                background-color: black;
+                position: absolute;
+                bottom: 45px;
+                left: 245px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon10{
+                width: 110px;
+                height: 40px;
+                /* background-color: whitesmoke; */
+                position: absolute;
+                top: 190px;
+                left: 100px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon11{
+                width: 100px;
+                height: 25px;
+                /* background-color: lightsteelblue; */
+                position: absolute;
+                bottom: 100px;
+                right: 150px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon12{
+                width: 65px;
+                height: 65px;
+                /* background-color: lightyellow; */
+                position: absolute;
+                top: 45px;
+                right: 145px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+            .icon13{
+                width: 80px;
+                height: 20px;
+                /* background-color: darkkhaki; */
+                position: absolute;
+                top: 160px;
+                right: 50px;
+                border-radius: 300px;
+                z-index: 2;
+            }
+            .icon14{
+                width: 80px;
+                height: 35px;
+                background-color: transparent;
+                position: absolute;
+                top: 210px;
+                left: 125px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon15{
+                width: 60px;
+                height: 60px;
+                /* background-color: darkgoldenrod; */
+                position: absolute;
+                top: 179px;
+                left: 389px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon16{
+                width: 59px;
+                height: 59px;
+                /* background-color: darkseagreen; */
+                position: absolute;
+                top: 80px;
+                right: 307px;
+                border-radius: 200px;
+                z-index: 1;
+            }
+            .icon17{
+                width: 60px;
+                height: 60px;
+                background-color: darkmagenta;
+                position: absolute;
+                top: 300px;
+                right: 20px;
+                border-radius: 200px;
+                z-index: 2;
+            }
+
+            /* Bubbles */
+            .bubble1{
+                width: 18px;
+                height: 18px;
+                background-color: lightseagreen;
+                position: absolute;
+                top: 128px;
+                left: 63px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble2{
+                width: 28px;
+                height: 28px;
+                background-color: darkorange;
+                position: absolute;
+                top: 145px;
+                left: 99px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble3{
+                width: 20px;
+                height: 20px;
+                background-color: darkolivegreen;
+                position: absolute;
+                bottom: 110px;
+                left: 235px;
+                border-radius: 50px;
+                z-index: 1
+            }
+            .bubble4{
+                width: 35px;
+                height: 35px;
+                background-color: darkred;
+                position: absolute;
+                bottom: 0px;
+                left: 330px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble5{
+                width: 15px;
+                height: 15px;
+                background-color: darkorchid;
+                position: absolute;
+                bottom: 75px;
+                left: 428px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble6{
+                width: 25px;
+                height: 25px;
+                background-color: darkviolet;
+                position: absolute;
+                top: 250px;
+                right: 230px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble7{
+                width: 38px;
+                height: 38px;
+                background-color: darkslategray;
+                position: absolute;
+                bottom: 130px;
+                right: 225px;
+                border-radius: 50px;
+                z-index: 3;
+            }
+            .bubble8{
+                width: 20px;
+                height: 20px;
+                background-color: darkslateblue;
+                position: absolute;
+                bottom: 179px;
+                right: 10px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble9{
+                width: 20px;
+                height: 20px;
+                background-color: darkslateblue;
+                position: absolute;
+                bottom: 175px;
+                left: 45px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble10{
+                width: 20px;
+                height: 8px;
+                background-color: darkslateblue;
+                position: absolute;
+                top: 75px;
+                left: 325px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+            .bubble11{
+                width: 15px;
+                height: 15px;
+                background-color: darkslateblue;
+                position: absolute;
+                top: 250px;
+                left: 190px;
+                border-radius: 50px;
+                z-index: 1;
+            }
+
+
+            .speed_money_details{
+                width: 350px;
+                height: 500px;
+                background-color: darkorange;
+                margin: auto;
+                margin-top: 25px;
+            }
+            .speed_details{
+                width: 280px;
+                height: 100px;
+                background-color: lightseagreen;
+                margin: auto;
+            }
+            .money_details{
+                width: 325px;
+                height: 150px;
+                background-color: lightsalmon;
+                margin: auto;
+            }
+            .ott_details{
+                width: 300px;
+                height: 250px;
+                background-color: lightgreen;
+                margin: auto;
             }
         </style>
     </head>
     <body>
-        <div class="main_page">
-            <div class="logo">
-                <div class="logo_bar">
-
+        <div class="main">
+            <div class="content">
+                <!-- <img src="background.jpg" style="width:800px;height:800px;margin: 5px 0px 0px 5px;float:left;opacity:0.4;"> -->
+                <div class="img_content">
+                    <div class="text">
+                        <!-- <h1 style="text-align: center;">Text</h1> -->
+                        <div class="text_money">
+                            <span style="font-weight: 1000;font-size: 60px;">
+                                <span style="font-weight: normal;">&#x20B9;</span><span style="line-height: 1.5;">549</span><sup style="font-size: 20px;color: red;">*</sup>
+                            </span>
+                        </div>
+                        <div class="text_gst">
+                            +GST
+                        </div>
+                    </div>
+                    <div class="icon1">
+                        <!-- <h2 style="text-align: center;">1</h2> -->
+                        <img src="Disney_plus_Hotstar.png" style="width: 100%;border-radius: 100px;">
+                    </div>
+                    <div class="icon2">
+                        <!-- <h2 style="text-align: center;">2</h2> -->
+                        <img src="Zee5.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon3">
+                        <!-- <h2 style="text-align: center;">3</h2> -->
+                        <img src="Discovery_plus.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon4">
+                        <!-- <h2 style="text-align: center;">4</h2> -->
+                        <img src="Sun_NXT.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon5">
+                        <!-- <h2 style="text-align: center;">5</h2> 
+                        <img src="Discovery_plus.png" style="width: 300%;border-radius: 100px;position: absolute;left: 18px;top: 5px;">
+                        <img src="Discovery_plus_name.png" style="width: 120%;border-radius: 100px;position: absolute;left: -30px;top: 72px;"> -->
+                        <img src="Sony_LIV.png" style="width: 100%;border-radius: 500px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon6">
+                        <!-- <h2 style="text-align: center;">6</h2> -->
+                        <img src="playbox_tv.png" style="width: 150%;border-radius: 100px;position: absolute;left: 35px;top: 10px;">
+                        <img src="playbox_tv_name.png" style="width: 90%;border-radius: 10px;position: absolute;left: 7.5px;top: -10px;">
+                    </div>
+                    <div class="icon7">
+                        <!-- <h2 style="text-align: center;">7</h2> -->
+                        <img src="Gaana.png" style="width: 100%;border-radius: 0px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon8">
+                        <!-- <h2 style="text-align: center;">8</h2> -->
+                        <img src="Hungama.png" style="width: 95%;border-radius: 0px;position: absolute;left: 7px;top: 6px;">
+                    </div>
+                    <div class="icon9">
+                        <!-- <h2 style="text-align: center;">9</h2> -->
+                        <img src="Shemaroo_me.png" style="width: 75%;border-radius: 0px;position: absolute;left: 20px;top: -21px;">
+                    </div>
+                    <!-- <div class="icon10">
+                        <h2 style="text-align: center;">10</h2> 
+                    </div> -->
+                    <div class="icon11">
+                        <!-- <h2 style="text-align: center;">11</h2> -->
+                        <img src="distrotv.png" style="width: 150%;border-radius: 300px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon12">
+                        <h2 style="text-align: center;">12</h2>
+                        <img src="hubhooper.png" style="width: 100%;border-radius: 300px;position: absolute;left: -0px;top: 0px;">
+                    </div>
+                    <div class="icon13">
+                        <!-- <h2 style="text-align: center;">13</h2> -->
+                        <img src="Fancode.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: -5px;">
+                    </div>
+                    <div class="icon14">
+                        <!-- <h2 style="text-align: center;">14</h2> -->
+                        <img src="Raj_Tv.png" style="width: 118%;border-radius: 0px;position: absolute;left: -12px;top: -8px;">
+                    </div>
+                    <div class="icon15">
+                        <!-- <h2 style="text-align: center;">15</h2> -->
+                        <img src="kanccha_Lannka.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon16">
+                        <!-- <h2 style="text-align: center;">16</h2> -->
+                        <img src="OM_Tv.png" style="width: 100%;border-radius: 300px;position: absolute;left: 0px;top: 0px;">
+                    </div>
+                    <div class="icon17">
+                        <!-- <h2 style="text-align: center;">17</h2> -->
+                    </div>
+                    <div class="bubble1">
+                        <!-- <span style="text-align: center;">b1</span> -->
+                    </div>
+                    <div class="bubble2">
+                        <!-- <span style="text-align: center;">b2</span> -->
+                    </div>
+                    <div class="bubble3">
+                        <!-- <span style="text-align: center;">b3</span> -->
+                    </div>
+                    <div class="bubble4">
+                        <!-- <span style="text-align: center;">b4</span> -->
+                    </div>
+                    <div class="bubble5">
+                        <!-- <span style="text-align: center;">b5</span> -->
+                    </div>
+                    <div class="bubble6">
+                        <!-- <span style="text-align: center;">b6</span> -->
+                    </div>
+                    <div class="bubble7">
+                        <!-- <span style="text-align: center;">b7</span> -->
+                    </div>
+                    <div class="bubble8">
+                        <!-- <span style="text-align: center;">b8</span> -->
+                    </div>
+                    <div class="bubble9">
+                        <!-- <span style="text-align: center;">b9</span> -->
+                    </div>
+                    <div class="bubble10">
+                        <!-- <span style="text-align: center;">b10</span> -->
+                    </div>
+                    <div class="bubble11">
+                        <!-- <span style="text-align: center;">b11</span> -->
+                    </div>
                 </div>
-            </div>
-            <div class="packages">
-                <div class="packlist">
 
+            <div class="descript_content" style="font-family: Noto Sans, sans-serif;">
+
+                <div class="speed_money_details">
+                    <div class="speed_details" style="text-align: center;">
+                        <span style="font-size: 25px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">50 Mbps speed</span>
+                        <span style="font-size: 15px;">&#64;</span>
+                        <br>
+                        <span style="font-size: 65px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; position: relative;font-weight: 400;">2</span>
+                        <span style="position: relative;top:-25px;font-size: 21px;">TB</span>
+                    </div>
+                    <div class="money_details">
+                        <div class="validity_details">Days</div>
+                        <div class="money_details_">799 + GST</div>
+                    </div>
+                    <div class="ott_details">
+                        Disney + Hotstar, Zee5, SunNXT, SonyLIV
+                    </div>
                 </div>
-            </div>
-            <div class="speedtest">
-
-            </div>
-            <div class="contactus">
-
             </div>
         </div>
     </body>
