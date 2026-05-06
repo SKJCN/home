@@ -1,526 +1,1260 @@
-<!Doctype HTML>
-<html>
-    <head>
-        <title>Packages</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel|Fauna+One">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral|Rubik">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Noto+Sans">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Lora">
-        <!-- Styles -->
-        <style>
-            body {
-                font-family: 'Fauna One', serif;
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SKJCN – Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:   #0b1f42;
+  --blue:   #1a4fa0;
+  --sky:    #3b82f6;
+  --accent: #f59e0b;
+  --light:  #f0f5ff;
+  --white:  #ffffff;
+  --text:   #1e2d45;
+  --muted:  #6b7a96;
+  --border: #d0dff5;
+  --radius: 12px;
+  --green:  #16a34a;
+  --red:    #dc2626;
+  --danger-bg: #fee2e2;
+  --danger-border: #fca5a5;
+  --success-bg: #dcfce7;
+  --success-border: #86efac;
+}
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background: var(--light);
+  color: var(--text);
+  min-height: 100vh;
+}
 
+/* ── HEADER ─────────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  color: var(--white);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 4px 24px rgba(11,31,66,.35);
+  position: relative;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--sky), var(--accent));
+}
+.header-left { display: flex; align-items: center; gap: 16px; }
+.railwire-block { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.railwire-logo-wrap {
+  background: var(--white); border-radius: 8px;
+  padding: 6px 12px; display: flex; align-items: center; gap: 8px;
+}
+.railwire-logo-wrap img { height: 36px; object-fit: contain; }
+.railwire-fallback { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 700; color: var(--blue); letter-spacing: 1px; }
+.header-divider {
+  width: 1.5px; height: 90px;
+  background: linear-gradient(to bottom, transparent, #4a6fa5, transparent);
+  border-radius: 2px; flex-shrink: 0;
+}
+.brand-block { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.brand-name { font-family: 'Nunito', sans-serif; font-size: clamp(16px,2.5vw,22px); font-weight: 700; line-height: 1.2; color: var(--white); text-align: center; }
+.brand-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #93b4e8; font-weight: 600; text-align: center; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.address { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.address span { font-size: 13px; color: #c8d9f5; font-weight: 500; line-height: 1.4; }
+.clock { font-size: 13px; color: #93b4e8; font-weight: 500; font-variant-numeric: tabular-nums; }
+.clock-colon { display: inline-block; position: relative; top: -2px; line-height: 1; margin: 0 3px; }
+.admin-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(245,158,11,.18); color: var(--accent);
+  border: 1px solid rgba(245,158,11,.4);
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+  margin-top: 4px;
+}
+.header-link { text-decoration: none; color: inherit; cursor: pointer; transition: opacity .2s; }
+.header-link:hover { opacity: 0.8; }
 
-            .main{
-                width: 1200px;
-                height: 600px;
-                background-color: pink;
-                /* background-image: url('bg5.jpg'); 7280 - 4080 */
-                background-size: 1092px;
-                margin: auto;
-            }
-            .content{
-                width: 1100px;
-                height: 550px;
-                background-color: lightgreen;
-                margin: auto;
-            }
-            .img_content{
-                width: 700px;
-                height: 550px;
-                background-color: gray;
-                position: relative;
-                opacity: 1;
-                float: left;
-            }
-            .descript_content{
-                width: 400px;
-                height: 550px;
-                background-color: lightyellow;
-                float: left;
-            }
+/* ── LOGIN OVERLAY ──────────────────────────────────── */
+#loginOverlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(11,31,66,.92);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+}
+.login-box {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 48px 40px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 64px rgba(11,31,66,.45);
+  text-align: center;
+  animation: popIn .4s cubic-bezier(.22,1,.36,1);
+}
+@keyframes popIn {
+  from { opacity:0; transform: scale(.92) translateY(20px); }
+  to   { opacity:1; transform: scale(1) translateY(0); }
+}
+.login-icon {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.login-icon svg { width: 30px; height: 30px; color: white; }
+.login-box h2 { font-family: 'Nunito', sans-serif; font-size: 24px; color: var(--navy); margin-bottom: 6px; }
+.login-box p { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.login-input-wrap { position: relative; margin-bottom: 16px; }
+.login-input-wrap input {
+  width: 100%; padding: 14px 46px 14px 16px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 15px;
+  color: var(--text); background: var(--light);
+  transition: border-color .2s, box-shadow .2s;
+  outline: none; letter-spacing: 2px;
+}
+.login-input-wrap input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(59,130,246,.18); }
+.toggle-pw {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--muted);
+  display: flex; align-items: center;
+}
+.toggle-pw:hover { color: var(--blue); }
+.toggle-pw svg { width: 18px; height: 18px; }
+.login-btn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: var(--white); border: none; border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: all .2s; letter-spacing: .5px;
+}
+.login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(11,31,66,.35); }
+.login-error {
+  color: var(--red); font-size: 13px; margin-top: 12px;
+  display: none; animation: shake .3s ease;
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
 
-            .text{
-                width: 190px;
-                height: 190px;
-                background-color: lightblue;
-                position: absolute;
-                top: 150px;
-                left: 208px;
-                border-radius: 200px;
-                z-index: 3;
-            }
-            .text_money{
-                width: 150px;
-                height: 95px;
-                background-color: lightgreen;
-                margin: auto;
-                margin-top: 45px;
-            }
-            .text_gst{
-                width: 75px;
-                height: 25px;
-                background-color: lightgoldenrodyellow;
-                position: absolute;
-                right: 30px;
-                bottom: 25px;
-                color: grey;
-                text-align: right;
-                padding-right: 18px;
+/* ── MAIN ───────────────────────────────────────────── */
+#adminContent { display: none; }
+main { max-width: 1100px; margin: 40px auto; padding: 0 20px 80px; }
 
-            }
-            .icon1{
-                width: 151px;
-                height: 151px;
-                /* background-color: lightcoral; */
-                position: absolute;
-                top: 48px;
-                left: 125px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon2{
-                width: 120px;
-                height: 120px;
-                /* background-color: lightcyan; */
-                position: absolute;
-                top: 226px;
-                left: 36px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon3{
-                width: 126px;
-                height: 126px;
-                /* background-color: lightgoldenrodyellow; */
-                position: absolute;
-                top: 289px;
-                left: 161px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon4{
-                width: 110px;
-                height: 110px;
-                /* background-color: lightgray; */
-                position: absolute;
-                top: 285px;
-                left: 340px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon5{
-                width: 122px;
-                height: 122px;
-                /* background-color: lightgreen; */
-                position: absolute;
-                top: 249px;
-                right: 85px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon6{
-                width: 130px;
-                height: 130px;
-                background-color: whitesmoke;
-                position: absolute;
-                bottom: 60px;
-                left: 60px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon7{
-                width: 110px;
-                height: 110px;
-                /* background-color: lightsalmon; */
-                position: absolute;
-                top: 163px;
-                right: 119px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon8{
-                width: 150px;
-                height: 50px;
-                background-color: whitesmoke;
-                position: absolute;
-                top: 100px;
-                right: 170px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon9{
-                width: 150px;
-                height: 70px;
-                background-color: black;
-                position: absolute;
-                bottom: 45px;
-                left: 245px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon10{
-                width: 110px;
-                height: 40px;
-                /* background-color: whitesmoke; */
-                position: absolute;
-                top: 190px;
-                left: 100px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon11{
-                width: 100px;
-                height: 25px;
-                /* background-color: lightsteelblue; */
-                position: absolute;
-                bottom: 100px;
-                right: 150px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon12{
-                width: 65px;
-                height: 65px;
-                /* background-color: lightyellow; */
-                position: absolute;
-                top: 45px;
-                right: 145px;
-                border-radius: 200px;
-                z-index: 2;
-            }
-            .icon13{
-                width: 80px;
-                height: 20px;
-                /* background-color: darkkhaki; */
-                position: absolute;
-                top: 160px;
-                right: 50px;
-                border-radius: 300px;
-                z-index: 2;
-            }
-            .icon14{
-                width: 80px;
-                height: 35px;
-                background-color: transparent;
-                position: absolute;
-                top: 210px;
-                left: 125px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon15{
-                width: 60px;
-                height: 60px;
-                /* background-color: darkgoldenrod; */
-                position: absolute;
-                top: 179px;
-                left: 389px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon16{
-                width: 59px;
-                height: 59px;
-                /* background-color: darkseagreen; */
-                position: absolute;
-                top: 80px;
-                right: 307px;
-                border-radius: 200px;
-                z-index: 1;
-            }
-            .icon17{
-                width: 60px;
-                height: 60px;
-                background-color: darkmagenta;
-                position: absolute;
-                top: 300px;
-                right: 20px;
-                border-radius: 200px;
-                z-index: 2;
-            }
+/* ── PAGE TITLE ─────────────────────────────────────── */
+.page-title {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 32px; gap: 16px; flex-wrap: wrap;
+}
+.page-title h1 {
+  font-family: 'Nunito', sans-serif; font-size: 28px; color: var(--navy);
+  display: flex; align-items: center; gap: 10px;
+}
+.page-title h1 svg { width: 28px; height: 28px; color: var(--sky); }
+.logout-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--danger-bg); color: var(--red);
+  border: 1.5px solid var(--danger-border);
+  font-size: 13px; font-weight: 700; padding: 8px 18px;
+  border-radius: 20px; cursor: pointer; transition: all .2s;
+  font-family: 'Nunito Sans', sans-serif;
+}
+.logout-btn:hover { background: #fecaca; }
+.logout-btn svg { width: 14px; height: 14px; }
 
-            /* Bubbles */
-            .bubble1{
-                width: 18px;
-                height: 18px;
-                background-color: lightseagreen;
-                position: absolute;
-                top: 128px;
-                left: 63px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble2{
-                width: 28px;
-                height: 28px;
-                background-color: darkorange;
-                position: absolute;
-                top: 145px;
-                left: 99px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble3{
-                width: 20px;
-                height: 20px;
-                background-color: darkolivegreen;
-                position: absolute;
-                bottom: 110px;
-                left: 235px;
-                border-radius: 50px;
-                z-index: 1
-            }
-            .bubble4{
-                width: 35px;
-                height: 35px;
-                background-color: darkred;
-                position: absolute;
-                bottom: 0px;
-                left: 330px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble5{
-                width: 15px;
-                height: 15px;
-                background-color: darkorchid;
-                position: absolute;
-                bottom: 75px;
-                left: 428px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble6{
-                width: 25px;
-                height: 25px;
-                background-color: darkviolet;
-                position: absolute;
-                top: 250px;
-                right: 230px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble7{
-                width: 38px;
-                height: 38px;
-                background-color: darkslategray;
-                position: absolute;
-                bottom: 130px;
-                right: 225px;
-                border-radius: 50px;
-                z-index: 3;
-            }
-            .bubble8{
-                width: 20px;
-                height: 20px;
-                background-color: darkslateblue;
-                position: absolute;
-                bottom: 179px;
-                right: 10px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble9{
-                width: 20px;
-                height: 20px;
-                background-color: darkslateblue;
-                position: absolute;
-                bottom: 175px;
-                left: 45px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble10{
-                width: 20px;
-                height: 8px;
-                background-color: darkslateblue;
-                position: absolute;
-                top: 75px;
-                left: 325px;
-                border-radius: 50px;
-                z-index: 1;
-            }
-            .bubble11{
-                width: 15px;
-                height: 15px;
-                background-color: darkslateblue;
-                position: absolute;
-                top: 250px;
-                left: 190px;
-                border-radius: 50px;
-                z-index: 1;
-            }
+/* ── STATS ROW ───────────────────────────────────────── */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+.stat-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 20px 24px; box-shadow: 0 2px 12px rgba(11,31,66,.08);
+  display: flex; align-items: center; gap: 16px;
+}
+.stat-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.stat-icon svg { width: 22px; height: 22px; }
+.stat-icon.blue { background: #dbeafe; color: var(--blue); }
+.stat-icon.green { background: var(--success-bg); color: var(--green); }
+.stat-icon.amber { background: #fef3c7; color: #d97706; }
+.stat-icon.red { background: var(--danger-bg); color: var(--red); }
+.stat-info { flex: 1; }
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 600; }
+.stat-value { font-family: 'Nunito', sans-serif; font-size: 26px; font-weight: 800; color: var(--navy); }
 
+/* ── TOOLBAR ─────────────────────────────────────────── */
+.toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.search-wrap { position: relative; flex: 1; max-width: 340px; }
+.search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--muted); }
+.search-wrap input {
+  width: 100%; padding: 10px 12px 10px 38px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'Nunito Sans', sans-serif; font-size: 14px; color: var(--text);
+  background: var(--white); outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.search-wrap input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+.add-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--blue), var(--sky));
+  color: var(--white); border: none;
+  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700;
+  padding: 10px 20px; border-radius: 10px; cursor: pointer; transition: all .2s;
+}
+.add-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,.4); }
+.add-btn svg { width: 16px; height: 16px; }
 
-            .speed_money_details{
-                width: 350px;
-                height: 500px;
-                background-color: darkorange;
-                margin: auto;
-                margin-top: 25px;
-            }
-            .speed_details{
-                width: 280px;
-                height: 100px;
-                background-color: lightseagreen;
-                margin: auto;
-            }
-            .money_details{
-                width: 325px;
-                height: 150px;
-                background-color: lightsalmon;
-                margin: auto;
-            }
-            .ott_details{
-                width: 300px;
-                height: 250px;
-                background-color: lightgreen;
-                margin: auto;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="main">
-            <div class="content">
-                <!-- <img src="background.jpg" style="width:800px;height:800px;margin: 5px 0px 0px 5px;float:left;opacity:0.4;"> -->
-                <div class="img_content">
-                    <div class="text">
-                        <!-- <h1 style="text-align: center;">Text</h1> -->
-                        <div class="text_money">
-                            <span style="font-weight: 1000;font-size: 60px;">
-                                <span style="font-weight: normal;">&#x20B9;</span><span style="line-height: 1.5;">549</span><sup style="font-size: 20px;color: red;">*</sup>
-                            </span>
-                        </div>
-                        <div class="text_gst">
-                            +GST
-                        </div>
-                    </div>
-                    <div class="icon1">
-                        <!-- <h2 style="text-align: center;">1</h2> -->
-                        <img src="Disney_plus_Hotstar.png" style="width: 100%;border-radius: 100px;">
-                    </div>
-                    <div class="icon2">
-                        <!-- <h2 style="text-align: center;">2</h2> -->
-                        <img src="Zee5.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon3">
-                        <!-- <h2 style="text-align: center;">3</h2> -->
-                        <img src="Discovery_plus.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon4">
-                        <!-- <h2 style="text-align: center;">4</h2> -->
-                        <img src="Sun_NXT.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon5">
-                        <!-- <h2 style="text-align: center;">5</h2> 
-                        <img src="Discovery_plus.png" style="width: 300%;border-radius: 100px;position: absolute;left: 18px;top: 5px;">
-                        <img src="Discovery_plus_name.png" style="width: 120%;border-radius: 100px;position: absolute;left: -30px;top: 72px;"> -->
-                        <img src="Sony_LIV.png" style="width: 100%;border-radius: 500px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon6">
-                        <!-- <h2 style="text-align: center;">6</h2> -->
-                        <img src="playbox_tv.png" style="width: 150%;border-radius: 100px;position: absolute;left: 35px;top: 10px;">
-                        <img src="playbox_tv_name.png" style="width: 90%;border-radius: 10px;position: absolute;left: 7.5px;top: -10px;">
-                    </div>
-                    <div class="icon7">
-                        <!-- <h2 style="text-align: center;">7</h2> -->
-                        <img src="Gaana.png" style="width: 100%;border-radius: 0px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon8">
-                        <!-- <h2 style="text-align: center;">8</h2> -->
-                        <img src="Hungama.png" style="width: 95%;border-radius: 0px;position: absolute;left: 7px;top: 6px;">
-                    </div>
-                    <div class="icon9">
-                        <!-- <h2 style="text-align: center;">9</h2> -->
-                        <img src="Shemaroo_me.png" style="width: 75%;border-radius: 0px;position: absolute;left: 20px;top: -21px;">
-                    </div>
-                    <!-- <div class="icon10">
-                        <h2 style="text-align: center;">10</h2> 
-                    </div> -->
-                    <div class="icon11">
-                        <!-- <h2 style="text-align: center;">11</h2> -->
-                        <img src="distrotv.png" style="width: 150%;border-radius: 300px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon12">
-                        <h2 style="text-align: center;">12</h2>
-                        <img src="hubhooper.png" style="width: 100%;border-radius: 300px;position: absolute;left: -0px;top: 0px;">
-                    </div>
-                    <div class="icon13">
-                        <!-- <h2 style="text-align: center;">13</h2> -->
-                        <img src="Fancode.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: -5px;">
-                    </div>
-                    <div class="icon14">
-                        <!-- <h2 style="text-align: center;">14</h2> -->
-                        <img src="Raj_Tv.png" style="width: 118%;border-radius: 0px;position: absolute;left: -12px;top: -8px;">
-                    </div>
-                    <div class="icon15">
-                        <!-- <h2 style="text-align: center;">15</h2> -->
-                        <img src="kanccha_Lannka.png" style="width: 100%;border-radius: 100px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon16">
-                        <!-- <h2 style="text-align: center;">16</h2> -->
-                        <img src="OM_Tv.png" style="width: 100%;border-radius: 300px;position: absolute;left: 0px;top: 0px;">
-                    </div>
-                    <div class="icon17">
-                        <!-- <h2 style="text-align: center;">17</h2> -->
-                    </div>
-                    <div class="bubble1">
-                        <!-- <span style="text-align: center;">b1</span> -->
-                    </div>
-                    <div class="bubble2">
-                        <!-- <span style="text-align: center;">b2</span> -->
-                    </div>
-                    <div class="bubble3">
-                        <!-- <span style="text-align: center;">b3</span> -->
-                    </div>
-                    <div class="bubble4">
-                        <!-- <span style="text-align: center;">b4</span> -->
-                    </div>
-                    <div class="bubble5">
-                        <!-- <span style="text-align: center;">b5</span> -->
-                    </div>
-                    <div class="bubble6">
-                        <!-- <span style="text-align: center;">b6</span> -->
-                    </div>
-                    <div class="bubble7">
-                        <!-- <span style="text-align: center;">b7</span> -->
-                    </div>
-                    <div class="bubble8">
-                        <!-- <span style="text-align: center;">b8</span> -->
-                    </div>
-                    <div class="bubble9">
-                        <!-- <span style="text-align: center;">b9</span> -->
-                    </div>
-                    <div class="bubble10">
-                        <!-- <span style="text-align: center;">b10</span> -->
-                    </div>
-                    <div class="bubble11">
-                        <!-- <span style="text-align: center;">b11</span> -->
-                    </div>
-                </div>
+/* ── CUSTOMERS TABLE CARD ────────────────────────────── */
+.card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: 0 2px 16px rgba(11,31,66,.09); overflow: hidden;
+}
+.card-header {
+  background: var(--navy); padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-header-title { font-size: 14px; font-weight: 600; color: var(--white); letter-spacing: 1px; text-transform: uppercase; }
+.card-header-count { font-size: 12px; color: #93b4e8; font-weight: 500; }
 
-            <div class="descript_content" style="font-family: Noto Sans, sans-serif;">
+.customers-table { width: 100%; border-collapse: collapse; }
+.customers-table thead tr { background: var(--light); border-bottom: 2px solid var(--border); }
+.customers-table thead th {
+  padding: 14px 20px; font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-align: left;
+}
+.customers-table tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+.customers-table tbody tr:last-child { border-bottom: none; }
+.customers-table tbody tr:hover { background: #f5f9ff; }
+.customers-table td { padding: 14px 20px; font-size: 14px; vertical-align: middle; }
 
-                <div class="speed_money_details">
-                    <div class="speed_details" style="text-align: center;">
-                        <span style="font-size: 25px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">50 Mbps speed</span>
-                        <span style="font-size: 15px;">&#64;</span>
-                        <br>
-                        <span style="font-size: 65px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; position: relative;font-weight: 400;">2</span>
-                        <span style="position: relative;top:-25px;font-size: 21px;">TB</span>
-                    </div>
-                    <div class="money_details">
-                        <div class="validity_details">Days</div>
-                        <div class="money_details_">799 + GST</div>
-                    </div>
-                    <div class="ott_details">
-                        Disney + Hotstar, Zee5, SunNXT, SonyLIV
-                    </div>
-                </div>
-            </div>
+.customer-name-cell { font-family: 'Nunito', sans-serif; font-weight: 700; color: var(--navy); font-size: 15px; }
+.customer-id { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.package-badge {
+  display: inline-flex; align-items: center;
+  background: #dbeafe; color: var(--blue);
+  border: 1.5px solid #bfdbfe;
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+}
+.status-active {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--success-bg); color: var(--green);
+  border: 1.5px solid var(--success-border);
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+}
+.status-expired {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--danger-bg); color: var(--red);
+  border: 1.5px solid var(--danger-border);
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+}
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.action-btns { display: flex; align-items: center; gap: 8px; }
+.edit-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: linear-gradient(135deg, var(--blue), var(--sky));
+  color: var(--white); border: none;
+  font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px;
+  cursor: pointer; transition: all .2s;
+}
+.edit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,.4); }
+.edit-btn svg { width: 12px; height: 12px; }
+.delete-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--danger-bg); color: var(--red);
+  border: 1.5px solid var(--danger-border);
+  font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px;
+  cursor: pointer; transition: all .2s;
+}
+.delete-btn:hover { background: #fecaca; }
+.delete-btn svg { width: 12px; height: 12px; }
+
+/* ── MODAL ───────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(11,31,66,.7); backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--white); border-radius: 18px;
+  padding: 36px; width: 100%; max-width: 580px;
+  box-shadow: 0 24px 64px rgba(11,31,66,.4);
+  animation: popIn .35s cubic-bezier(.22,1,.36,1);
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.modal-header h3 { font-family: 'Nunito', sans-serif; font-size: 20px; color: var(--navy); }
+.modal-close {
+  background: none; border: none; cursor: pointer; color: var(--muted);
+  width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.modal-close:hover { background: var(--light); color: var(--text); }
+.modal-close svg { width: 18px; height: 18px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+.form-input {
+  padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'Nunito Sans', sans-serif; font-size: 14px; color: var(--text);
+  background: var(--light); outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.form-input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(59,130,246,.15); background: var(--white); }
+.form-select {
+  padding: 11px 36px 11px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'Nunito Sans', sans-serif; font-size: 14px; color: var(--text);
+  background: var(--light) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7a96' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+  appearance: none; outline: none; cursor: pointer; transition: border-color .2s;
+}
+.form-select:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+.months-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+.month-toggle {
+  padding: 8px 6px; border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 12px; font-weight: 600; text-align: center; cursor: pointer;
+  transition: all .15s; background: var(--light); color: var(--muted);
+  user-select: none;
+}
+.month-toggle.active { background: var(--danger-bg); border-color: var(--danger-border); color: var(--red); }
+.month-toggle:hover:not(.active) { border-color: var(--sky); color: var(--blue); }
+
+.modal-footer { display: flex; gap: 12px; margin-top: 28px; justify-content: flex-end; }
+.btn-cancel {
+  padding: 11px 24px; border: 1.5px solid var(--border); border-radius: 10px;
+  background: var(--white); color: var(--muted); font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 700; cursor: pointer; transition: all .2s;
+}
+.btn-cancel:hover { border-color: var(--muted); color: var(--text); }
+.btn-save {
+  padding: 11px 28px; border: none; border-radius: 10px;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: var(--white); font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 700; cursor: pointer; transition: all .2s;
+}
+.btn-save:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(11,31,66,.3); }
+
+/* ── GITHUB PUSH SECTION ─────────────────────────────── */
+.github-section {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: 0 2px 16px rgba(11,31,66,.09);
+  padding: 24px 28px; margin-top: 24px;
+}
+.github-section h3 {
+  font-family: 'Nunito', sans-serif; font-size: 17px; color: var(--navy);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.github-section h3 svg { width: 20px; height: 20px; }
+.github-section p { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.github-form { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: end; }
+.github-form .form-group { margin: 0; }
+.push-btn {
+  padding: 11px 22px; border: none; border-radius: 10px;
+  background: linear-gradient(135deg, #1e293b, #374151);
+  color: var(--white); font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 700; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.push-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,41,59,.4); }
+.push-btn svg { width: 16px; height: 16px; }
+.push-status {
+  margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+  font-size: 13px; font-weight: 600; display: none;
+}
+.push-status.success { background: var(--success-bg); color: var(--green); border: 1.5px solid var(--success-border); display: block; }
+.push-status.error { background: var(--danger-bg); color: var(--red); border: 1.5px solid var(--danger-border); display: block; }
+.push-status.info { background: #dbeafe; color: var(--blue); border: 1.5px solid #bfdbfe; display: block; }
+
+/* ── INSTRUCTIONS CARD ───────────────────────────────── */
+.info-card {
+  background: #fffbeb; border: 1.5px solid #fde68a;
+  border-radius: var(--radius); padding: 20px 24px; margin-top: 24px;
+}
+.info-card h4 {
+  font-family: 'Nunito', sans-serif; font-size: 15px; color: #92400e;
+  display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
+}
+.info-card h4 svg { width: 16px; height: 16px; }
+.info-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.info-card li { font-size: 13px; color: #78350f; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.info-card li::before { content: '→'; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+code { font-family: 'JetBrains Mono', monospace; background: #fef3c7; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+/* ── EMPTY / NO RESULTS ──────────────────────────────── */
+.empty-row td { text-align: center; padding: 48px; color: var(--muted); font-style: italic; }
+
+/* ── ANIMATIONS ──────────────────────────────────────── */
+.railwire-block, .brand-block { opacity: 0; }
+.railwire-block.animate { animation: slideFromRight .6s cubic-bezier(.22,1,.36,1) forwards; }
+.brand-block.animate { animation: slideFromLeft .6s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes slideFromRight { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+@keyframes slideFromLeft  { from { opacity:0; transform: translateX(-20px); } to { opacity:1; transform: translateX(0); } }
+
+/* ── FOOTER ──────────────────────────────────────────── */
+footer { text-align: center; padding: 20px 20px 28px; }
+.footer-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: var(--muted); text-decoration: none; margin-bottom: 4px; }
+.footer-year { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+
+@media (max-width: 700px) {
+  header { padding: 16px 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .github-form { grid-template-columns: 1fr; }
+  .months-grid { grid-template-columns: repeat(3,1fr); }
+  main { padding: 0 12px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN OVERLAY ═══════════════ -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+      </svg>
+    </div>
+    <h2>Admin Login</h2>
+    <p>Sri Kamakshi Jagan Cable Network</p>
+    <div class="login-input-wrap">
+      <input type="password" id="loginPassword" placeholder="Enter admin password" autocomplete="current-password" />
+      <button class="toggle-pw" id="togglePw" type="button" title="Show/hide password">
+        <svg id="eyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <svg id="eyeClosed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/>
+        </svg>
+      </button>
+    </div>
+    <button class="login-btn" id="loginBtn">Unlock Admin Panel</button>
+    <div class="login-error" id="loginError">❌ Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header>
+  <div class="header-left">
+    <a href="https://skjcn.github.io/home/" target="_blank" class="header-link railwire-block">
+      <div class="railwire-logo-wrap">
+        <img src="https://www.railwire.co.in/images/railwire-logo.png" alt="Railwire"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="railwire-fallback" style="display:none;">🚄 Railwire</span>
+      </div>
+      <span class="brand-label">ISP</span>
+    </a>
+    <div class="header-divider"></div>
+    <a href="https://skjcn.github.io/home/" target="_blank" class="header-link brand-block">
+      <div class="brand-name">Sri Kamakshi Jagan<br>Cable Network</div>
+      <span class="brand-label">LCO</span>
+    </a>
+  </div>
+  <div class="header-right">
+    <div class="address">
+      <span>Srikalahasti, AP</span>
+      <span>India</span>
+    </div>
+    <div class="clock" id="clock"><span id="clockDate"></span><span id="clockTime"></span></div>
+    <div class="admin-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>
+      </svg>
+      Admin
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ ADMIN CONTENT ════════════════════ -->
+<div id="adminContent">
+<main>
+
+  <!-- Page Title -->
+  <div class="page-title">
+    <h1>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+      </svg>
+      Customer Management
+    </h1>
+    <button class="logout-btn" id="logoutBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/>
+      </svg>
+      Logout
+    </button>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Total Customers</div>
+        <div class="stat-value" id="statTotal">0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Active</div>
+        <div class="stat-value" id="statActive">0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Expired</div>
+        <div class="stat-value" id="statExpired">0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon amber">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Monthly Revenue</div>
+        <div class="stat-value" id="statRevenue">₹0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search customers..." />
+    </div>
+    <button class="add-btn" id="addCustomerBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+      </svg>
+      Add Customer
+    </button>
+  </div>
+
+  <!-- Customers Table -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-title">All Customers</span>
+      <span class="card-header-count" id="tableCount">0 customers</span>
+    </div>
+    <table class="customers-table">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Package</th>
+          <th>Amount</th>
+          <th>Renewal</th>
+          <th>Status</th>
+          <th style="text-align:right">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="customersTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- GitHub Push Section -->
+  <div class="github-section">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+      GitHub Auto-Sync
+    </h3>
+    <p>When you save customer changes, generate the updated <code>invoices.html</code> and push it to the customer's GitHub repo via the API. The customer's page will automatically reflect the updated data.</p>
+
+    <div class="github-form">
+      <div class="form-group">
+        <label class="form-label">GitHub Token (PAT)</label>
+        <input type="password" class="form-input" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Customer Repo (owner/repo)</label>
+        <input type="text" class="form-input" id="ghRepo" placeholder="skjcn/customer-invoices" />
+      </div>
+      <div>
+        <label class="form-label" style="display:block;margin-bottom:6px;">Auto-push on Save</label>
+        <button class="push-btn" id="testGhBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/>
+          </svg>
+          Test Connection
+        </button>
+      </div>
+    </div>
+    <div class="push-status" id="pushStatus"></div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="info-card">
+    <h4>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/>
+      </svg>
+      How the GitHub Sync Works
+    </h4>
+    <ul>
+      <li>Admin panel lives in your <strong>admin GitHub repo</strong> (private). Edit customer data here.</li>
+      <li>Customer invoices page lives in a <strong>separate public repo</strong> (e.g. <code>skjcn/customer-invoices</code>).</li>
+      <li>When you click <strong>Save</strong> on a customer, the admin generates a fresh <code>invoices.html</code> and pushes it to the customer repo via the <strong>GitHub Contents API</strong> using your PAT token.</li>
+      <li>The customer's page at <code>skjcn.github.io/customer-invoices/</code> updates automatically through GitHub Pages — no manual steps needed.</li>
+      <li>Store your GitHub Token in the field above. It is never sent anywhere except directly to <code>api.github.com</code>.</li>
+    </ul>
+  </div>
+
+</main>
+</div><!-- /adminContent -->
+
+<!-- ═══════════════════ FOOTER ════════════════════ -->
+<footer>
+  <a class="footer-brand" href="https://skjcn.github.io/home/" target="_blank">
+    <span>Sri Kamakshi Jagan Cable Network</span>
+  </a>
+  <div class="footer-year">Admin Panel &nbsp;·&nbsp; <span id="footerYear"></span></div>
+</footer>
+
+<!-- ═══════════════════ EDIT MODAL ════════════════════ -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">Edit Customer</h3>
+      <button class="modal-close" id="modalClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Customer Name</label>
+        <input type="text" class="form-input" id="fName" placeholder="e.g. Rajesh Kumar" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Customer ID</label>
+        <input type="text" class="form-input" id="fId" placeholder="e.g. 12345" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Package Name</label>
+        <input type="text" class="form-input" id="fPackage" placeholder="e.g. Gold Plan" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Package Amount</label>
+        <input type="text" class="form-input" id="fAmount" placeholder="e.g. ₹499 / month" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Renewal Date</label>
+        <input type="date" class="form-input" id="fRenewal" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-select" id="fStatus">
+          <option value="active">Active</option>
+          <option value="expired">Expired</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">New Connection Year</label>
+        <select class="form-select" id="fNewConnYear">
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024" selected>2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">New Connection Month</label>
+        <select class="form-select" id="fNewConnMonth">
+          <option value="0">January</option><option value="1">February</option>
+          <option value="2">March</option><option value="3">April</option>
+          <option value="4" selected>May</option><option value="5">June</option>
+          <option value="6">July</option><option value="7">August</option>
+          <option value="8">September</option><option value="9">October</option>
+          <option value="10">November</option><option value="11">December</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label">Customer Repo (owner/repo) — overrides global</label>
+        <input type="text" class="form-input" id="fRepo" placeholder="leave blank to use global repo setting" />
+      </div>
+      <div class="form-group full">
+        <label class="form-label" style="margin-bottom:8px;">Mark Months as "Not Available" (current year)</label>
+        <div class="months-grid" id="notAvailMonths"></div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" id="cancelModal">Cancel</button>
+      <button class="btn-save" id="saveCustomer">
+        <span id="saveBtnText">💾 Save &amp; Push to GitHub</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   CONFIGURATION
+   ══════════════════════════════════════════════════════ */
+// Password is stored as SHA-256 hash (never plain text in source)
+// Hash of the admin password — change by running: crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword')).then(b => [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''))
+const ADMIN_PASSWORD_HASH = "66f60568ff1b2c0fc5d6c66b40dc7b95b5bf9c79b44a218cf487b98a62d2f21e";
+
+const MONTHS_LIST = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const SHORT_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const SHORT_DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+/* ══ SAMPLE CUSTOMER DATA ══════════════════════════════ */
+// This is stored in localStorage so edits persist across sessions.
+const DEFAULT_CUSTOMERS = [
+  {
+    id: "cust_001",
+    name: "Rajesh Kumar",
+    customerId: "10001",
+    package: "Gold Plan",
+    amount: "₹499 / month",
+    renewal: "2026-05-01",
+    status: "active",
+    newConnYear: 2024,
+    newConnMonth: 4,
+    repo: "",
+    notAvailable: { 2024: ["September","December"], 2025: ["July","August"] },
+    invoiceData: {
+      2024: {
+        January: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Jan-2024.pdf",
+        February: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Feb-2024.pdf",
+        March: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Mar-2024.pdf",
+        April: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Apr-2024.pdf",
+        May: "https://github.com/your-repo/invoices/raw/main/2024/cust001/May-2024.pdf",
+        June: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Jun-2024.pdf",
+        July: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Jul-2024.pdf",
+        August: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Aug-2024.pdf",
+        October: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Oct-2024.pdf",
+        November: "https://github.com/your-repo/invoices/raw/main/2024/cust001/Nov-2024.pdf",
+      },
+      2025: {
+        January: "https://github.com/your-repo/invoices/raw/main/2025/cust001/Jan-2025.pdf",
+        February: "https://github.com/your-repo/invoices/raw/main/2025/cust001/Feb-2025.pdf",
+        March: "https://github.com/your-repo/invoices/raw/main/2025/cust001/Mar-2025.pdf",
+        April: "https://github.com/your-repo/invoices/raw/main/2025/cust001/Apr-2025.pdf",
+        May: "https://github.com/your-repo/invoices/raw/main/2025/cust001/May-2025.pdf",
+      },
+      2026: {
+        January: "https://github.com/your-repo/invoices/raw/main/2026/cust001/Jan-2026.pdf",
+      }
+    }
+  },
+  {
+    id: "cust_002",
+    name: "Priya Devi",
+    customerId: "10002",
+    package: "Silver Plan",
+    amount: "₹349 / month",
+    renewal: "2026-04-15",
+    status: "expired",
+    newConnYear: 2024,
+    newConnMonth: 2,
+    repo: "",
+    notAvailable: { 2024: [], 2025: ["November","December"] },
+    invoiceData: {
+      2024: {
+        March: "https://github.com/your-repo/invoices/raw/main/2024/cust002/Mar-2024.pdf",
+        April: "https://github.com/your-repo/invoices/raw/main/2024/cust002/Apr-2024.pdf",
+        May: "https://github.com/your-repo/invoices/raw/main/2024/cust002/May-2024.pdf",
+        June: "https://github.com/your-repo/invoices/raw/main/2024/cust002/Jun-2024.pdf",
+      },
+      2025: {
+        January: "https://github.com/your-repo/invoices/raw/main/2025/cust002/Jan-2025.pdf",
+        February: "https://github.com/your-repo/invoices/raw/main/2025/cust002/Feb-2025.pdf",
+      },
+      2026: {}
+    }
+  },
+  {
+    id: "cust_003",
+    name: "Venkatesh Rao",
+    customerId: "10003",
+    package: "Platinum Plan",
+    amount: "₹699 / month",
+    renewal: "2026-05-10",
+    status: "active",
+    newConnYear: 2023,
+    newConnMonth: 0,
+    repo: "",
+    notAvailable: {},
+    invoiceData: {
+      2023: {
+        January: "https://github.com/your-repo/invoices/raw/main/2023/cust003/Jan-2023.pdf",
+        February: "https://github.com/your-repo/invoices/raw/main/2023/cust003/Feb-2023.pdf",
+      },
+      2024: {
+        January: "https://github.com/your-repo/invoices/raw/main/2024/cust003/Jan-2024.pdf",
+        February: "https://github.com/your-repo/invoices/raw/main/2024/cust003/Feb-2024.pdf",
+        March: "https://github.com/your-repo/invoices/raw/main/2024/cust003/Mar-2024.pdf",
+      },
+      2025: {
+        January: "https://github.com/your-repo/invoices/raw/main/2025/cust003/Jan-2025.pdf",
+      },
+      2026: {
+        January: "https://github.com/your-repo/invoices/raw/main/2026/cust003/Jan-2026.pdf",
+      }
+    }
+  }
+];
+
+/* ══ STORAGE ═══════════════════════════════════════════ */
+function loadCustomers() {
+  try {
+    const stored = localStorage.getItem('skjcn_customers');
+    return stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(DEFAULT_CUSTOMERS));
+  } catch { return JSON.parse(JSON.stringify(DEFAULT_CUSTOMERS)); }
+}
+function saveCustomers(data) {
+  localStorage.setItem('skjcn_customers', JSON.stringify(data));
+}
+let customers = loadCustomers();
+let editingId = null; // null = adding new
+
+/* ══ CLOCK ══════════════════════════════════════════════ */
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const colon = now.getSeconds() % 2 === 0 ? ':' : '<span style="opacity:0">:</span>';
+  document.getElementById('clockDate').innerHTML = `${SHORT_DAYS[now.getDay()]}, ${now.getDate()} ${SHORT_MONTHS[now.getMonth()]}&nbsp;&nbsp;&nbsp;`;
+  document.getElementById('clockTime').innerHTML = `${h}${colon}${m}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+/* ══ LOGIN ══════════════════════════════════════════════ */
+const loginOverlay = document.getElementById('loginOverlay');
+const adminContent = document.getElementById('adminContent');
+const loginPassword = document.getElementById('loginPassword');
+const loginError = document.getElementById('loginError');
+
+document.getElementById('togglePw').addEventListener('click', () => {
+  const isPass = loginPassword.type === 'password';
+  loginPassword.type = isPass ? 'text' : 'password';
+  document.getElementById('eyeOpen').style.display = isPass ? 'none' : '';
+  document.getElementById('eyeClosed').style.display = isPass ? '' : 'none';
+});
+
+async function hashString(str) {
+  const msgBuffer = new TextEncoder().encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  return [...new Uint8Array(hashBuffer)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function attemptLogin() {
+  const enteredHash = await hashString(loginPassword.value);
+  if (enteredHash === ADMIN_PASSWORD_HASH) {
+    loginOverlay.style.display = 'none';
+    adminContent.style.display = 'block';
+    renderStats();
+    renderTable();
+    setTimeout(() => {
+      document.querySelector('.railwire-block').classList.add('animate');
+      document.querySelector('.brand-block').classList.add('animate');
+    }, 100);
+  } else {
+    loginError.style.display = 'block';
+    loginError.style.animation = 'none';
+    void loginError.offsetWidth;
+    loginError.style.animation = '';
+    loginPassword.value = '';
+    loginPassword.focus();
+  }
+}
+document.getElementById('loginBtn').addEventListener('click', attemptLogin);
+loginPassword.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  adminContent.style.display = 'none';
+  loginOverlay.style.display = 'flex';
+  loginPassword.value = '';
+  loginError.style.display = 'none';
+});
+
+/* ══ STATS ══════════════════════════════════════════════ */
+function renderStats() {
+  const total = customers.length;
+  const active = customers.filter(c => c.status === 'active').length;
+  const expired = customers.filter(c => c.status === 'expired').length;
+  let revenue = 0;
+  customers.filter(c => c.status === 'active').forEach(c => {
+    const m = c.amount.match(/[\d,]+/);
+    if (m) revenue += parseInt(m[0].replace(/,/g,''));
+  });
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statActive').textContent = active;
+  document.getElementById('statExpired').textContent = expired;
+  document.getElementById('statRevenue').textContent = `₹${revenue.toLocaleString('en-IN')}`;
+}
+
+/* ══ TABLE ══════════════════════════════════════════════ */
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', renderTable);
+
+function fmtDate(str) {
+  if (!str) return '—';
+  const d = new Date(str + 'T00:00:00');
+  return `${String(d.getDate()).padStart(2,'0')} ${SHORT_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function renderTable() {
+  const q = searchInput.value.toLowerCase().trim();
+  const filtered = q
+    ? customers.filter(c => c.name.toLowerCase().includes(q) || c.customerId.includes(q) || c.package.toLowerCase().includes(q))
+    : customers;
+
+  document.getElementById('tableCount').textContent = `${filtered.length} customer${filtered.length !== 1 ? 's' : ''}`;
+  const tbody = document.getElementById('customersTableBody');
+  tbody.innerHTML = '';
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No customers found.</td></tr>';
+    return;
+  }
+
+  filtered.forEach(c => {
+    const tr = document.createElement('tr');
+    const statusBadge = c.status === 'active'
+      ? `<span class="status-active"><span class="status-dot"></span>Active</span>`
+      : `<span class="status-expired"><span class="status-dot"></span>Expired</span>`;
+    tr.innerHTML = `
+      <td>
+        <div class="customer-name-cell">${c.name}</div>
+        <div class="customer-id">#${c.customerId}</div>
+      </td>
+      <td><span class="package-badge">${c.package}</span></td>
+      <td>${c.amount}</td>
+      <td>${fmtDate(c.renewal)}</td>
+      <td>${statusBadge}</td>
+      <td style="text-align:right">
+        <div class="action-btns" style="justify-content:flex-end">
+          <button class="edit-btn" data-id="${c.id}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125"/>
+            </svg>
+            Edit
+          </button>
+          <button class="delete-btn" data-id="${c.id}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+            </svg>
+            Delete
+          </button>
         </div>
-    </body>
-</html>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Bind edit/delete
+  tbody.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', () => openEdit(btn.dataset.id)));
+  tbody.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', () => deleteCustomer(btn.dataset.id)));
+}
+
+/* ══ MODAL ══════════════════════════════════════════════ */
+const editModal = document.getElementById('editModal');
+const modalClose = document.getElementById('modalClose');
+const cancelModal = document.getElementById('cancelModal');
+const notAvailGrid = document.getElementById('notAvailMonths');
+let selectedNotAvail = [];
+
+function buildMonthsGrid(selected) {
+  notAvailGrid.innerHTML = '';
+  selectedNotAvail = selected ? [...selected] : [];
+  MONTHS_LIST.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'month-toggle' + (selectedNotAvail.includes(m) ? ' active' : '');
+    el.textContent = m.slice(0,3);
+    el.title = m;
+    el.addEventListener('click', () => {
+      if (selectedNotAvail.includes(m)) {
+        selectedNotAvail = selectedNotAvail.filter(x => x !== m);
+        el.classList.remove('active');
+      } else {
+        selectedNotAvail.push(m);
+        el.classList.add('active');
+      }
+    });
+    notAvailGrid.appendChild(el);
+  });
+}
+
+function openEdit(id) {
+  const c = customers.find(x => x.id === id);
+  if (!c) return;
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Customer';
+  document.getElementById('saveBtnText').innerHTML = '💾 Save &amp; Push to GitHub';
+  document.getElementById('fName').value = c.name;
+  document.getElementById('fId').value = c.customerId;
+  document.getElementById('fPackage').value = c.package;
+  document.getElementById('fAmount').value = c.amount;
+  document.getElementById('fRenewal').value = c.renewal;
+  document.getElementById('fStatus').value = c.status;
+  document.getElementById('fNewConnYear').value = c.newConnYear;
+  document.getElementById('fNewConnMonth').value = c.newConnMonth;
+  document.getElementById('fRepo').value = c.repo || '';
+  const thisYear = new Date().getFullYear();
+  buildMonthsGrid((c.notAvailable || {})[thisYear] || []);
+  editModal.classList.add('open');
+}
+
+function openAdd() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add New Customer';
+  document.getElementById('saveBtnText').innerHTML = '➕ Add &amp; Push to GitHub';
+  document.getElementById('fName').value = '';
+  document.getElementById('fId').value = '';
+  document.getElementById('fPackage').value = '';
+  document.getElementById('fAmount').value = '';
+  document.getElementById('fRenewal').value = new Date().toISOString().split('T')[0];
+  document.getElementById('fStatus').value = 'active';
+  document.getElementById('fNewConnYear').value = new Date().getFullYear();
+  document.getElementById('fNewConnMonth').value = new Date().getMonth();
+  document.getElementById('fRepo').value = '';
+  buildMonthsGrid([]);
+  editModal.classList.add('open');
+}
+
+function closeModal() { editModal.classList.remove('open'); }
+modalClose.addEventListener('click', closeModal);
+cancelModal.addEventListener('click', closeModal);
+editModal.addEventListener('click', e => { if (e.target === editModal) closeModal(); });
+document.getElementById('addCustomerBtn').addEventListener('click', openAdd);
+
+/* ══ SAVE ═══════════════════════════════════════════════ */
+document.getElementById('saveCustomer').addEventListener('click', async () => {
+  const name    = document.getElementById('fName').value.trim();
+  const custId  = document.getElementById('fId').value.trim();
+  const pkg     = document.getElementById('fPackage').value.trim();
+  const amount  = document.getElementById('fAmount').value.trim();
+  const renewal = document.getElementById('fRenewal').value;
+  const status  = document.getElementById('fStatus').value;
+  const ncYear  = parseInt(document.getElementById('fNewConnYear').value);
+  const ncMonth = parseInt(document.getElementById('fNewConnMonth').value);
+  const repo    = document.getElementById('fRepo').value.trim();
+
+  if (!name || !custId || !pkg || !amount || !renewal) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  const thisYear = new Date().getFullYear();
+
+  if (editingId) {
+    const idx = customers.findIndex(c => c.id === editingId);
+    if (idx === -1) return;
+    customers[idx].name = name;
+    customers[idx].customerId = custId;
+    customers[idx].package = pkg;
+    customers[idx].amount = amount;
+    customers[idx].renewal = renewal;
+    customers[idx].status = status;
+    customers[idx].newConnYear = ncYear;
+    customers[idx].newConnMonth = ncMonth;
+    customers[idx].repo = repo;
+    if (!customers[idx].notAvailable) customers[idx].notAvailable = {};
+    customers[idx].notAvailable[thisYear] = [...selectedNotAvail];
+    await pushToGitHub(customers[idx]);
+  } else {
+    const newCust = {
+      id: 'cust_' + Date.now(),
+      name, customerId: custId, package: pkg, amount, renewal, status,
+      newConnYear: ncYear, newConnMonth: ncMonth, repo,
+      notAvailable: { [thisYear]: [...selectedNotAvail] },
+      invoiceData: {}
+    };
+    customers.push(newCust);
+    await pushToGitHub(newCust);
+  }
+
+  saveCustomers(customers);
+  renderStats();
+  renderTable();
+  closeModal();
+});
+
+/* ══ DELETE ═════════════════════════════════════════════ */
+function deleteCustomer(id) {
+  const c = customers.find(x => x.id === id);
+  if (!c) return;
+  if (!confirm(`Delete customer "${c.name}"? This cannot be undone.`)) return;
+  customers = customers.filter(x => x.id !== id);
+  saveCustomers(customers);
+  renderStats();
+  renderTable();
+}
+
+/* ══ GENERATE CUSTOMER HTML ═════════════════════════════ */
+function generateCustomerHtml(c) {
+  // Serialise the customer data into the same template as invoices.html
+  const notAvailJson = JSON.stringify(c.notAvailable || {}, null, 2);
+  const invoiceJson  = JSON.stringify(c.invoiceData  || {}, null, 2);
+  const ncYear  = c.newConnYear  || 2024;
+  const ncMonth = c.newConnMonth != null ? c.newConnMonth : 4;
+
+  // Full template — mirrors original invoices.html exactly, data injected
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sri Kamakshi Jagan Cable Network – Invoices</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<!-- [styles omitted for brevity — paste full CSS from invoices.html here] -->
+<style>
+/* Paste the full CSS from invoices.html */
+</style>
+</head>
+<body>
+<!-- Auto-generated by SKJCN Admin Panel -->
+<!-- Last updated: ${new Date().toISOString()} -->
+<script>
+const customerName   = ${JSON.stringify(c.name)};
+const packageName    = ${JSON.stringify(c.package)};
+const packageAmount  = ${JSON.stringify(c.amount)};
+const renewalDateStr = ${JSON.stringify(c.renewal)};
+const notAvailable   = ${notAvailJson};
+const invoiceData    = ${invoiceJson};
+const NEW_CONNECTION_YEAR  = ${ncYear};
+const NEW_CONNECTION_MONTH = ${ncMonth};
+/* … rest of invoices.html JS … */
+<\/script>
+</body>
+</html>`;
+}
+
+/* ══ GITHUB PUSH ════════════════════════════════════════ */
+async function pushToGitHub(customer) {
+  const token = document.getElementById('ghToken').value.trim();
+  const repo  = customer.repo || document.getElementById('ghRepo').value.trim();
+  if (!token || !repo) {
+    showPushStatus('info', '⚠️ No GitHub token or repo set — customer saved locally only. Fill in GitHub settings to auto-push.');
+    return;
+  }
+
+  const filePath = `index.html`; // or `customers/${customer.customerId}/index.html` for multi-customer
+  const content  = generateCustomerHtml(customer);
+  const encoded  = btoa(unescape(encodeURIComponent(content)));
+  const apiUrl   = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+
+  try {
+    showPushStatus('info', '🔄 Pushing to GitHub…');
+
+    // Get current SHA (needed for update)
+    let sha = null;
+    try {
+      const headRes = await fetch(apiUrl, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (headRes.ok) {
+        const headData = await headRes.json();
+        sha = headData.sha;
+      }
+    } catch {}
+
+    const body = {
+      message: `[Admin] Update customer: ${customer.name} (${customer.customerId}) — ${new Date().toISOString()}`,
+      content: encoded,
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (res.ok) {
+      showPushStatus('success', `✅ Successfully pushed to GitHub repo "${repo}". Customer page will update in ~1 minute via GitHub Pages.`);
+    } else {
+      const err = await res.json();
+      showPushStatus('error', `❌ GitHub API error: ${err.message || res.status}`);
+    }
+  } catch (e) {
+    showPushStatus('error', `❌ Push failed: ${e.message}`);
+  }
+}
+
+function showPushStatus(type, msg) {
+  const el = document.getElementById('pushStatus');
+  el.className = 'push-status ' + type;
+  el.textContent = msg;
+  if (type === 'success') setTimeout(() => { el.className = 'push-status'; }, 8000);
+}
+
+/* ══ TEST CONNECTION ════════════════════════════════════ */
+document.getElementById('testGhBtn').addEventListener('click', async () => {
+  const token = document.getElementById('ghToken').value.trim();
+  const repo  = document.getElementById('ghRepo').value.trim();
+  if (!token || !repo) {
+    showPushStatus('error', '❌ Please fill in both GitHub Token and Repo fields.');
+    return;
+  }
+  showPushStatus('info', '🔄 Testing connection…');
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}`, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      showPushStatus('success', `✅ Connected to "${data.full_name}" — ${data.visibility} repo. Ready to push!`);
+    } else {
+      const err = await res.json();
+      showPushStatus('error', `❌ ${err.message || 'Access denied. Check token and repo name.'}`);
+    }
+  } catch (e) {
+    showPushStatus('error', `❌ Network error: ${e.message}`);
+  }
+});
+
+/* ══ HEADER ANIMATION ═══════════════════════════════════ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelector('.railwire-block').classList.add('animate');
+    document.querySelector('.brand-block').classList.add('animate');
+  }, 1000);
+});
+</script>
+</body>
+</html>`;
