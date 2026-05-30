@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Packages — Sri Kamakshi Jagan Cable Network</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&amp;family=Nunito+Sans:wght@300;400;600;700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Sora:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0b1f42;
+      --blue:   #1a4fa0;
+      --sky:    #3b82f6;
+      --accent: #f59e0b;
+      --light:  #f0f5ff;
+      --white:  #ffffff;
+      --text:   #1e2d45;
+      --muted:  #6b7a96;
+      --border: #d0dff5;
+      --radius: 12px;
+      --green:  #10b981;
+      --purple: #8b5cf6;
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ════════════════════════════════
+       NAV
+    ════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      box-shadow: 0 4px 24px rgba(11,31,66,.35);
+      padding: 0 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100px;
+    }
+    nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--sky), var(--accent));
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+    .railwire-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: headerSlideIn .7s cubic-bezier(.22,1,.36,1) .2s forwards;
+    }
+    .railwire-logo-wrap {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .railwire-logo-wrap img {
+      height: 36px;
+      object-fit: contain;
+    }
+    .railwire-fallback {
+      font-family: 'Nunito', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 1px;
+    }
+    .nav-header-divider {
+      width: 1.5px;
+      height: 90px;
+      background: linear-gradient(to bottom, transparent, #4a6fa5, transparent);
+      border-radius: 2px;
+      flex-shrink: 0;
+      opacity: 0;
+      animation: headerFadeIn .6s ease .55s forwards;
+    }
+    .nav-brand-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: headerSlideIn .7s cubic-bezier(.22,1,.36,1) .45s forwards;
+    }
+    .nav-brand-name {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+      text-align: center;
+    }
+    .nav-brand-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #93b4e8;
+      font-weight: 600;
+      text-align: center;
+    }
+    @keyframes headerSlideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes headerFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .nav-brand:hover .railwire-block,
+    .nav-brand:hover .nav-brand-block { opacity: .8; transition: opacity .2s; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links li a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: rgba(255,255,255,.7);
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+    .nav-links li a:hover {
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+    }
+    .nav-links li a.active {
+      background: rgba(245,158,11,.15);
+      color: var(--accent);
+      border: 1px solid rgba(245,158,11,.3);
+    }
+    .nav-links li a.active svg { stroke: var(--accent); }
+
+    .nav-login-btn {
+      background: linear-gradient(135deg, var(--accent), #d97706) !important;
+      color: var(--navy) !important;
+      font-weight: 700 !important;
+      border: none !important;
+    }
+    .nav-login-btn:hover { opacity: .9; }
+
+    /* ════════════════════════════════
+       PAGE HERO (compact)
+    ════════════════════════════════ */
+    .page-hero {
+      padding-top: 100px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+      pointer-events: none;
+    }
+    .page-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 56px;
+      text-align: center;
+    }
+    .page-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      background: rgba(245,158,11,.12);
+      border: 1px solid rgba(245,158,11,.3);
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      animation: fadeUp .6s ease .1s both;
+    }
+    .page-hero-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      animation: fadeUp .6s ease .2s both;
+    }
+    .page-hero-title span { color: var(--accent); }
+    .page-hero-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,.6);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+      animation: fadeUp .6s ease .3s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Wave divider */
+    .page-hero-wave {
+      display: block;
+      width: 100%;
+      margin-bottom: -2px;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* ════════════════════════════════
+       TAB NAV
+    ════════════════════════════════ */
+    .tab-strip {
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 100px;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(11,31,66,.07);
+    }
+    .tab-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-strip-inner::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--sky); }
+    .tab-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ════════════════════════════════
+       PACKAGES SECTIONS
+    ════════════════════════════════ */
+    .pkg-section {
+      padding: 72px 40px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .pkg-section + .pkg-section {
+      padding-top: 0;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .eyebrow-unlimited { color: var(--sky); background: rgba(59,130,246,.08); border: 1px solid rgba(59,130,246,.2); }
+    .eyebrow-ott       { color: var(--green); background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); }
+    .eyebrow-limited   { color: var(--purple); background: rgba(139,92,246,.08); border: 1px solid rgba(139,92,246,.2); }
+    .eyebrow-tv        { color: #d97706; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); }
+
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(22px, 3.5vw, 32px);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 600px;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1.5px solid var(--border);
+      margin: 0 40px;
+      max-width: 1020px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ════════════════════════════════
+       CARD GRID
+    ════════════════════════════════ */
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 22px;
+    }
+
+    .plan-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(11,31,66,.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1.5px solid var(--border);
+      transition: transform .25s, box-shadow .25s;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .plan-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .55s ease, transform .55s ease, box-shadow .25s;
+    }
+    .plan-card:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 14px 44px rgba(11,31,66,.16);
+    }
+    .plan-card.featured {
+      border-color: var(--sky);
+      box-shadow: 0 4px 28px rgba(59,130,246,.18);
+    }
+    .plan-card:nth-child(1).visible { transition-delay: .05s; }
+    .plan-card:nth-child(2).visible { transition-delay: .12s; }
+    .plan-card:nth-child(3).visible { transition-delay: .19s; }
+    .plan-card:nth-child(4).visible { transition-delay: .26s; }
+
+    /* Accent top bar */
+    .card-accent-bar {
+      height: 4px;
+      width: 100%;
+    }
+    .bar-unlimited { background: linear-gradient(90deg, var(--sky), #60a5fa); }
+    .bar-ott       { background: linear-gradient(90deg, var(--green), #34d399); }
+    .bar-limited   { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+    .bar-tv        { background: linear-gradient(90deg, var(--accent), #fbbf24); }
+
+    .plan-header {
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .plan-card.featured .plan-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    }
+    .plan-badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: linear-gradient(135deg, var(--accent), #d97706);
+      color: var(--navy);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+    .plan-icon {
+      width: 44px; height: 44px;
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .plan-icon.wifi-icon   { background: rgba(59,130,246,.1); }
+    .plan-icon.ott-icon    { background: rgba(16,185,129,.1); }
+    .plan-icon.tv-icon     { background: rgba(245,158,11,.1); }
+    .plan-icon.limit-icon  { background: rgba(139,92,246,.1); }
+    .plan-card.featured .plan-icon { background: rgba(255,255,255,.12); }
+    .plan-icon svg { width: 24px; height: 24px; }
+
+    .plan-name {
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 3px;
+      word-break: break-word;
+    }
+    .plan-card.featured .plan-name { color: var(--white); }
+    .plan-tagline {
+      font-size: 11.5px;
+      color: var(--muted);
+      letter-spacing: .2px;
+    }
+    .plan-card.featured .plan-tagline { color: rgba(255,255,255,.55); }
+
+    .plan-body { padding: 20px 24px; flex: 1; }
+
+    .plan-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+      margin-bottom: 14px;
+      flex-wrap: nowrap;
+      overflow: hidden;
+    }
+    .plan-price {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .plan-price .rupee { font-size: 18px; font-weight: 700; vertical-align: top; margin-top: 4px; display: inline-block; }
+    .plan-price-mo {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      align-self: flex-end;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .price-bonus {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ef4444;
+      align-self: flex-end;
+      margin-bottom: 3px;
+      margin-left: 4px;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .price-bonus.hidden { display: none; }
+
+    .plan-fup-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139,92,246,.07);
+      border: 1px solid rgba(139,92,246,.18);
+      border-radius: 8px;
+      padding: 5px 11px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 12.5px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .feat-check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(16,185,129,.1);
+      border: 1px solid rgba(16,185,129,.25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .feat-check svg { width: 10px; height: 10px; stroke: #10b981; }
+
+    .plan-footer {
+      padding: 16px 24px 24px;
+    }
+    .plan-btn {
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: var(--radius);
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow .25s, transform .2s;
+    }
+    .plan-btn { transform: translateY(0); }
+    .plan-card:hover .plan-btn { transform: translateY(-2px); }
+    .plan-btn .btn-label {
+      position: relative;
+      z-index: 1;
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
+    }
+    .plan-card:hover .plan-btn .btn-label { transform: translateX(-4px); }
+    .plan-btn .btn-arrows {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      position: relative;
+      z-index: 1;
+    }
+    .plan-btn .btn-arrows span {
+      display: inline-block;
+      font-style: normal;
+      font-size: 15px;
+      line-height: 1;
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity .25s ease, transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    .plan-btn .btn-arrows span:nth-child(1) { transition-delay: 0s; }
+    .plan-btn .btn-arrows span:nth-child(2) { transition-delay: .06s; }
+    .plan-btn .btn-arrows span:nth-child(3) { transition-delay: .12s; }
+    .plan-card:hover .plan-btn .btn-arrows span { opacity: 1; transform: translateX(0); }
+    .plan-btn.primary-btn  { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%); color: var(--white); }
+    .plan-btn.accent-btn   { background: linear-gradient(135deg, var(--accent), #d97706); color: var(--navy); }
+    .plan-btn.green-btn    { background: linear-gradient(135deg, #10b981, #059669); color: var(--white); }
+    .plan-btn.purple-btn   { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: var(--white); }
+    .plan-btn.outlined-btn { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+    .plan-card:hover .plan-btn.primary-btn  { box-shadow: 0 8px 28px rgba(26,79,160,.4); }
+    .plan-card:hover .plan-btn.accent-btn   { box-shadow: 0 8px 28px rgba(245,158,11,.35); }
+    .plan-card:hover .plan-btn.green-btn    { box-shadow: 0 8px 28px rgba(16,185,129,.35); }
+    .plan-card:hover .plan-btn.purple-btn   { box-shadow: 0 8px 28px rgba(139,92,246,.35); }
+    .plan-card:hover .plan-btn.outlined-btn { background: var(--light); box-shadow: 0 6px 20px rgba(11,31,66,.1); }
+
+    /* Offer dot */
+    .offer-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 1.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .offer-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,.08);
+      border: 1px solid rgba(16,185,129,.25);
+      color: #047857;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; } 50% { opacity: .2; }
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: var(--white);
+      position: relative;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--sky), var(--accent));
+    }
+    .footer-main {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 48px 52px 40px;
+    }
+    /* ── Enquiry Form ── */
+    .footer-contact h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .enquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      width: 320px;
+    }
+    .enq-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .enq-field label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #93b4e8;
+    }
+    .enq-field input,
+    .enq-field select {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,.88);
+      outline: none;
+      transition: border-color .2s, background .2s;
+      width: 100%;
+    }
+    .enq-field input::placeholder { color: rgba(255,255,255,.3); }
+    .enq-field input:focus,
+    .enq-field select:focus {
+      border-color: rgba(59,130,246,.55);
+      background: rgba(255,255,255,.1);
+    }
+    .enq-field select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2393b4e8' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-color: rgba(255,255,255,.06);
+      cursor: pointer;
+      padding-right: 34px;
+    }
+    .enq-field select option { background: #0b1f42; color: #fff; }
+    .enq-submit {
+      margin-top: 4px;
+      padding: 11px 20px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), #d97706);
+      color: var(--navy);
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity .2s, transform .2s;
+    }
+    .enq-submit:hover { opacity: .9; transform: translateY(-1px); }
+    .enq-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .enq-msg {
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 7px;
+      display: none;
+      font-weight: 600;
+    }
+    .enq-msg.success {
+      display: block;
+      background: rgba(16,185,129,.12);
+      border: 1px solid rgba(16,185,129,.3);
+      color: #6ee7b7;
+    }
+    .enq-msg.error {
+      display: block;
+      background: rgba(239,68,68,.1);
+      border: 1px solid rgba(239,68,68,.25);
+      color: #fca5a5;
+    }
+    .footer-plans {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 14px;
+    }
+    .footer-plans-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .footer-plan-chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .footer-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      letter-spacing: .3px;
+      transition: background .2s, border-color .2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .footer-chip:hover {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.28);
+      color: var(--white);
+    }
+    .footer-chip svg { width: 14px; height: 14px; stroke: #93b4e8; }
+    .footer-chip:hover svg { stroke: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 18px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .3px;
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .footer-bottom-links a {
+      font-size: 11px;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,.75); }
+
+    /* ════════════════════════════════
+       FLOATING CALL BAR
+    ════════════════════════════════ */
+    .call-bar {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(110px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg,
+        rgba(8, 18, 44, 0.96) 0%,
+        rgba(15, 35, 75, 0.94) 55%,
+        rgba(10, 22, 52, 0.96) 100%);
+      border: 1px solid rgba(147, 180, 232, 0.18);
+      border-top-color: rgba(147, 180, 232, 0.28);
+      border-radius: 60px;
+      box-shadow:
+        0 2px 0 rgba(255,255,255,.06) inset,
+        0 -1px 0 rgba(0,0,0,.4) inset,
+        0 12px 40px rgba(7, 16, 40, 0.7),
+        0 4px 16px rgba(7, 16, 40, 0.5),
+        0 0 0 1px rgba(11, 31, 66, 0.8),
+        0 0 48px rgba(245, 158, 11, 0.07);
+      padding: 5px 14px 5px 8px;
+      opacity: 0;
+      pointer-events: none;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      transition: transform .7s cubic-bezier(.22,1,.36,1), opacity .6s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .call-bar.entered {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .call-bar::before {
+      content: '';
+      position: absolute; inset: -7px;
+      border-radius: 68px;
+      border: 1.5px solid rgba(245, 158, 11, 0.12);
+      animation: islandAura 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .call-bar::after {
+      content: '';
+      position: absolute; inset: -14px;
+      border-radius: 74px;
+      border: 1px solid rgba(59, 130, 246, 0.06);
+      animation: islandAura 3s ease-in-out .6s infinite;
+      pointer-events: none;
+    }
+    @keyframes islandAura {
+      0%,100% { opacity: 0.7; transform: scale(1); }
+      50%      { opacity: 0;   transform: scale(1.04); }
+    }
+    .call-island {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .call-icon-wrap {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #22c55e 0%, #16a34a 55%, #15803d 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow:
+        0 0 0 3px rgba(34,197,94,.18),
+        0 4px 20px rgba(22,163,74,.55),
+        0 1px 3px rgba(0,0,0,.4),
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -1px 0 rgba(0,0,0,.25);
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: box-shadow .2s, transform .15s;
+      position: relative;
+    }
+    .call-icon-wrap::before {
+      content: '';
+      position: absolute;
+      top: 4px; left: 6px; right: 6px;
+      height: 40%;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,.25), transparent);
+      pointer-events: none;
+    }
+    .call-icon-wrap:hover {
+      box-shadow: 0 0 0 5px rgba(34,197,94,.22), 0 6px 28px rgba(22,163,74,.7), 0 1px 3px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.25);
+      transform: scale(1.04);
+    }
+    .call-icon-wrap svg {
+      width: 16px; height: 16px;
+      stroke: #ffffff; fill: none;
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+    }
+    .call-side {
+      display: flex; align-items: center;
+      overflow: hidden;
+      max-width: 0; opacity: 0;
+      transition: max-width .55s cubic-bezier(.22,1,.36,1), opacity .4s ease, padding .55s cubic-bezier(.22,1,.36,1);
+    }
+    .call-side.show { max-width: 210px; opacity: 1; }
+    .call-left { padding-left: 0; }
+    .call-left.show { padding-left: 14px; }
+    .call-left .call-num-inner { transform: translateX(40px); transition: transform .55s cubic-bezier(.22,1,.36,1); }
+    .call-left.show .call-num-inner { transform: translateX(0); }
+    .call-right { padding-right: 0; }
+    .call-right.show { padding-right: 14px; }
+    .call-right .call-num-inner { transform: translateX(-40px); transition: transform .55s cubic-bezier(.22,1,.36,1); }
+    .call-right.show .call-num-inner { transform: translateX(0); }
+    .call-side-inner { display: flex; align-items: center; gap: 12px; }
+    .call-divider-wrap {
+      width: 1px; height: 28px; flex-shrink: 0;
+      overflow: hidden; max-width: 0; opacity: 0;
+      transition: max-width .45s .1s cubic-bezier(.22,1,.36,1), opacity .3s .1s ease;
+    }
+    .call-divider-wrap .call-divider-line {
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(147,180,232,.3) 30%, rgba(147,180,232,.3) 70%, transparent);
+    }
+    .call-divider-wrap.show { max-width: 2px; opacity: 1; }
+    .call-num-link { text-decoration: none; display: block; }
+    .call-num-inner { display: inline-flex; align-items: center; gap: 7px; }
+    .call-num-inner span {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: rgba(220,235,255,.9);
+      letter-spacing: .5px; display: block;
+      transition: color .2s;
+    }
+    .call-num-link:hover .call-num-inner span { color: #38bdf8; }
+    .call-num-inner svg { flex-shrink: 0; transition: stroke .2s; }
+    .call-num-link:hover .call-num-inner svg { stroke: rgba(251,191,36,.9); }
+
+    @keyframes phoneRing {
+      0%   { transform: rotate(0deg); }
+      5%   { transform: rotate(14deg); }
+      10%  { transform: rotate(-12deg); }
+      15%  { transform: rotate(11deg); }
+      20%  { transform: rotate(-9deg); }
+      25%  { transform: rotate(7deg); }
+      30%  { transform: rotate(-5deg); }
+      35%  { transform: rotate(3deg); }
+      40%  { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .call-icon-wrap.ringing { animation: phoneRing .6s ease; }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 4px; }
+      .nav-links li a { padding: 8px 10px; font-size: 11px; }
+      .page-hero-inner { padding: 44px 20px 42px; }
+      .tab-strip-inner { padding: 0 16px; }
+      .tab-btn { padding: 14px 16px; font-size: 11px; }
+      .pkg-section { padding: 48px 20px 56px; }
+      .pkg-grid { grid-template-columns: 1fr; }
+      .footer-main { flex-direction: column; padding: 36px 24px; }
+      .footer-plans { align-items: flex-start; }
+      .footer-plan-chips { justify-content: flex-start; }
+      .footer-bottom { flex-direction: column; padding: 16px 24px; gap: 10px; text-align: center; }
+      .call-bar { bottom: 20px; }
+    }
+  
+    .plan-card:active .plan-btn { transform: translateY(-2px); }
+    .plan-card:active .plan-btn .btn-label { transform: translateX(-4px); }
+    .plan-card:active .plan-btn .btn-arrows span { opacity: 1; transform: translateX(0); }
+    .plan-card:active .plan-btn.primary-btn  { box-shadow: 0 8px 28px rgba(26,79,160,.4); }
+    .plan-card:active .plan-btn.accent-btn   { box-shadow: 0 8px 28px rgba(245,158,11,.35); }
+    .plan-card:active .plan-btn.green-btn    { box-shadow: 0 8px 28px rgba(16,185,129,.35); }
+    .plan-card:active .plan-btn.purple-btn   { box-shadow: 0 8px 28px rgba(139,92,246,.35); }
+    .plan-card:active .plan-btn.outlined-btn { background: var(--light); box-shadow: 0 6px 20px rgba(11,31,66,.1); }
+  
+    /* Animated sliding indicator under active tab */
+    .tab-strip { position: sticky; top: 100px; z-index: 100; }
+    .tab-indicator {
+      position: absolute;
+      bottom: -2px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sky), #60a5fa);
+      border-radius: 2px 2px 0 0;
+      transition: left .38s cubic-bezier(.65,0,.35,1), width .38s cubic-bezier(.65,0,.35,1);
+      pointer-events: none;
+    }
+    .tab-strip-inner { position: relative; }
+    .tab-btn {
+      transition: color .2s, background .2s;
+    }
+    .tab-btn.active { border-bottom-color: transparent !important; }
+
+  
+    /* ════════════════════════════════
+       NAV ICON PROFESSIONAL ANIMATIONS
+    ════════════════════════════════ */
+
+    .nav-links li a {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-links li a svg {
+      display: inline-block;
+      flex-shrink: 0;
+      transform-origin: center;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1),
+                  stroke .25s ease,
+                  opacity .25s ease;
+    }
+
+
+
+    /* ── HOME: clean lift + stroke brighten ── */
+    .nav-link-home:hover svg {
+      transform: translateY(-2px) scale(1.12);
+      stroke: #93c5fd;
+    }
+
+    /* ── PACKAGES: crisp scale-up, no flip ── */
+    .nav-link-packages:hover svg {
+      transform: scale(1.18) rotate(-8deg);
+      stroke: var(--accent);
+    }
+
+    /* ── LOGIN: forward nudge ── */
+    .nav-link-login:hover svg {
+      transform: translateX(3px) scale(1.12);
+      stroke: var(--navy);
+    }
+
+    /* Active state icon color */
+    .nav-link-packages.active svg { stroke: var(--accent); }
+
+    /* ════════════════════════════════
+       DURATION COMPARISON WIDGET
+    ════════════════════════════════ */
+    .duration-compare {
+      margin-bottom: 16px;
+    }
+    .duration-compare-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: capitalize;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+    .duration-tabs {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      background: var(--light);
+    }
+    .duration-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 2px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      transition: background .18s, color .18s;
+      border-right: 1px solid var(--border);
+      gap: 3px;
+      position: relative;
+    }
+    .duration-tab:last-child { border-right: none; }
+    .duration-tab.active-dur {
+      background: var(--white);
+      box-shadow: inset 0 -2px 0 var(--sky);
+    }
+    .dur-period {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      text-transform: capitalize;
+      color: var(--muted);
+    }
+    .duration-tab.active-dur .dur-period { color: var(--blue); }
+    .dur-save {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: .3px;
+    }
+    .dur-save.invisible { visibility: hidden; }
+
+  </style>
+</head>
+<body>
+<!-- ════ NAV ════ -->
+<nav>
+<a class="nav-brand" href="home.html">
+<div class="railwire-block">
+<div class="railwire-logo-wrap">
+<img alt="Railwire" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" src="https://www.railwire.co.in/images/railwire-logo.png"/>
+<span class="railwire-fallback" style="display:none;">🚄 Railwire</span>
+</div>
+<span class="nav-brand-label">ISP</span>
+</div>
+<div class="nav-header-divider"></div>
+<div class="nav-brand-block">
+<div class="nav-brand-name">Sri Kamakshi Jagan<br/>Cable Network</div>
+<span class="nav-brand-label">LCO</span>
+</div>
+</a>
+<ul class="nav-links">
+<li>
+<a class="nav-link-home" href="home.html">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14">
+<path d="M2.25 12L11.204 3.045a1.5 1.5 0 012.092 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Home
+        </a>
+</li>
+<li>
+<a class="active nav-link-packages" href="packages.html">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14">
+<path d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Packages
+        </a>
+</li>
+<li>
+<a class="nav-login-btn nav-link-login" href="index.html">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14">
+<path d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Login
+        </a>
+</li>
+</ul>
+</nav>
+<!-- ════ PAGE HERO ════ -->
+<div class="page-hero">
+<div class="page-hero-inner">
+<div class="page-eyebrow">All Plans &amp; Packages</div>
+<h1 class="page-hero-title">Choose Your Perfect<br/><span>Internet Plan</span></h1>
+<p class="page-hero-sub">Fast, reliable &amp; affordable broadband with Railwire backbone. Select from Unlimited, OTT, Limited or WiFi+TV bundles.</p>
+</div>
+<svg class="page-hero-wave" fill="none" preserveaspectratio="none" viewbox="0 0 1440 52" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 52V28C240 5 480 0 720 18C960 36 1200 44 1440 28V52H0Z" fill="#f0f5ff"></path>
+</svg>
+</div>
+<!-- ════ TAB NAV ════ -->
+<div class="tab-strip">
+<div class="tab-strip-inner">
+<a class="tab-btn active" href="#unlimited">
+<svg fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        Unlimited
+      </a>
+<a class="tab-btn" href="#ott">
+<svg fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        WiFi + OTT
+      </a>
+<a class="tab-btn" href="#limited">
+<svg fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        Limited (FUP)
+      </a>
+<a class="tab-btn" href="#tv">
+<svg fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<path d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        WiFi + TV
+      </a>
+</div>
+</div>
+<!-- ════ SECTION 1: UNLIMITED ════ -->
+<section class="pkg-section" id="unlimited">
+<div class="section-header">
+<div class="section-eyebrow eyebrow-unlimited">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        Unlimited Plans
+      </div>
+<div class="section-title">Pure High-Speed Internet</div>
+<p class="section-desc">No data caps, no throttling. Ideal for working professionals and heavy internet users who need reliable, always-on broadband.</p>
+</div>
+<div class="pkg-grid">
+<!-- 40Mbps_Unlimited -->
+<div class="plan-card">
+<div class="card-accent-bar bar-unlimited"></div>
+<div class="plan-header">
+<div class="plan-icon wifi-icon">
+<svg fill="none" stroke="#3b82f6" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Silver - 40Mbps Unlimited</div>
+<div class="plan-tagline">Great for entertainment</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">599</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="599"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="1,797"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
+<button class="duration-tab" data-months="6 months" data-price="3,594"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
+<button class="duration-tab" data-months="10 months" data-price="5,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Unlimited Data</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Best for Entertainment</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>24/7 Technical Support</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn outlined-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 50Mbps_Unlimited -->
+<div class="plan-card">
+<div class="card-accent-bar bar-unlimited"></div>
+<div class="plan-header">
+<div class="plan-icon wifi-icon">
+<svg fill="none" stroke="#3b82f6" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Gold - 50Mbps Unlimited</div>
+<div class="plan-tagline">For working employees</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">699</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="699"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,097"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
+<button class="duration-tab" data-months="6 months" data-price="4,194"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
+<button class="duration-tab" data-months="10 months" data-price="6,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Unlimited Data</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Ideal for Work from Home</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Video Calls &amp; Meetings</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>24/7 Technical Support</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn primary-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 75Mbps_Unlimited (Featured) -->
+<div class="plan-card featured">
+<div class="card-accent-bar bar-unlimited"></div>
+<div class="plan-header">
+<div class="plan-badge">Popular</div>
+<div class="plan-icon wifi-icon">
+<svg fill="none" stroke="#ffffff" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Gold plus - 75Mbps Unlimited</div>
+<div class="plan-tagline">Work &amp; Entertainment</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">949</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="949"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,847"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
+<button class="duration-tab" data-months="6 months" data-price="5,694"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
+<button class="duration-tab" data-months="10 months" data-price="9,490"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Unlimited Data</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Work from Home + Streaming</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>HD Video &amp; Gaming Ready</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Priority 24/7 Support</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn accent-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 100Mbps_Unlimited -->
+<div class="plan-card">
+<div class="card-accent-bar bar-unlimited"></div>
+<div class="plan-header">
+<div class="plan-icon wifi-icon">
+<svg fill="none" stroke="#3b82f6" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Elite - 100Mbps Unlimited</div>
+<div class="plan-tagline">Work &amp; Entertainment Pro</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">1199</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="1,199"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="3,597"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
+<button class="duration-tab" data-months="6 months" data-price="7,194"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
+<button class="duration-tab" data-months="10 months" data-price="11,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Unlimited Data</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Max Speed for Work &amp; Play</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>4K Streaming &amp; Gaming</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn primary-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- ════ SECTION 2: OTT ════ -->
+<section class="pkg-section" id="ott">
+<div class="section-header">
+<div class="section-eyebrow eyebrow-ott">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        WiFi + OTT Plans
+      </div>
+<div class="section-title">Stream Everything You Love</div>
+<p class="section-desc">Internet bundled with your favourite OTT platforms — Zee5, SunNXT, Aha, EtvWin, AmazonPrime Lite, Jio Hotstar &amp; 200+ Live TV Channels.</p>
+</div>
+<div class="pkg-grid">
+<!-- 30Mbps_OTT -->
+<div class="plan-card">
+<div class="card-accent-bar bar-ott"></div>
+<div class="plan-header">
+<div class="plan-icon ott-icon">
+<svg fill="none" stroke="#10b981" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Starter - 30Mbps OTT</div>
+<div class="plan-tagline">Streaming starter pack</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">450</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="450"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="1,350"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="6 months" data-price="2,700"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="12 months" data-price="5,400"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Zee5</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>SunNXT</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Aha &amp; EtvWin</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Live TV Channels</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn green-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 50Mbps_OTT (Featured) -->
+<div class="plan-card featured">
+<div class="card-accent-bar bar-ott"></div>
+<div class="plan-header">
+<div class="plan-badge">Best Value</div>
+<div class="plan-icon ott-icon">
+<svg fill="none" stroke="#ffffff" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Plus - 50Mbps OTT</div>
+<div class="plan-tagline">Prime streaming bundle</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">699</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="699"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,097"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="6 months" data-price="4,194"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="12 months" data-price="8,388"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>AmazonPrime Lite</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Jio Hotstar</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Zee5, SunNXT, Aha, EtvWin</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Live TV Channels</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn accent-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 75Mbps_OTT -->
+<div class="plan-card">
+<div class="card-accent-bar bar-ott"></div>
+<div class="plan-header">
+<div class="plan-icon ott-icon">
+<svg fill="none" stroke="#10b981" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Premium - 75Mbps OTT</div>
+<div class="plan-tagline">Premium streaming</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">849</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="849"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,547"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="6 months" data-price="5,094"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="12 months" data-price="10,188"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>AmazonPrime Lite</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Jio Hotstar</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Zee5, SunNXT, Aha, EtvWin</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Live TV Channels</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn green-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 100Mbps_OTT -->
+<div class="plan-card">
+<div class="card-accent-bar bar-ott"></div>
+<div class="plan-header">
+<div class="plan-icon ott-icon">
+<svg fill="none" stroke="#10b981" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Ultimate - 100Mbps OTT</div>
+<div class="plan-tagline">Ultra streaming experience</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">999</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="999"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,997"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="6 months" data-price="5,994"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="12 months" data-price="11,988"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>AmazonPrime Lite</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Jio Hotstar</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Zee5, SunNXT, Aha, EtvWin</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Live TV Channels</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn green-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- ════ SECTION 3: LIMITED (FUP) ════ -->
+<section class="pkg-section" id="limited">
+<div class="section-header">
+<div class="section-eyebrow eyebrow-limited">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12">
+<path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        Limited (FUP) Plans
+      </div>
+<div class="section-title">High Speed with Data Limit</div>
+<p class="section-desc">Full speed up to your FUP data limit — perfect for moderate users who want maximum speed without paying for unlimited access.</p>
+</div>
+<div class="pkg-grid">
+<!-- 80Mbps_FUP -->
+<div class="plan-card">
+<div class="card-accent-bar bar-limited"></div>
+<div class="plan-header">
+<div class="plan-icon limit-icon">
+<svg fill="none" stroke="#8b5cf6" stroke-width="2" viewbox="0 0 24 24">
+<path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Lite - 80Mbps FUP</div>
+<div class="plan-tagline">upto 1200 GB data</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">699</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="699"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,097"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
+<button class="duration-tab" data-months="6 months" data-price="4,194"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
+<button class="duration-tab" data-months="10 months" data-price="6,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+</div>
+</div>
+<div class="plan-fup-tag">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="12"><path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            FUP: 1200 GB
+          </div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Full Speed up to 1200 GB</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>HD Streaming Ready</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>24/7 Technical Support</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn purple-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+<!-- 100Mbps_FUP -->
+<div class="plan-card">
+<div class="card-accent-bar bar-limited"></div>
+<div class="plan-header">
+<div class="plan-icon limit-icon">
+<svg fill="none" stroke="#8b5cf6" stroke-width="2" viewbox="0 0 24 24">
+<path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Core - 100Mbps FUP</div>
+<div class="plan-tagline">upto 1500 GB data</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">799</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="799"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="2,397"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
+<button class="duration-tab" data-months="6 months" data-price="4,794"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
+<button class="duration-tab" data-months="10 months" data-price="7,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+</div>
+</div>
+<div class="plan-fup-tag">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="12"><path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            FUP: 1500 GB
+          </div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Full Speed up to 1500 GB</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>4K Streaming Ready</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>Multi-Device Support</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>24/7 Technical Support</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn purple-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+</div>
+</section>
+<hr class="section-divider"/>
+<!-- ════ SECTION 4: WIFI + TV ════ -->
+<section class="pkg-section" id="tv">
+<div class="section-header">
+<div class="section-eyebrow eyebrow-tv">
+<svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12">
+<path d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        WiFi + TV Plans
+      </div>
+<div class="section-title">Internet &amp; Cable TV in One</div>
+<p class="section-desc">Get broadband and cable television in a single affordable plan. Enjoy regional and national channels including 400+ Live TV channels.</p>
+</div>
+<div class="pkg-grid">
+<!-- 20Mbps_Ultimate -->
+<div class="plan-card">
+<div class="card-accent-bar bar-tv"></div>
+<div class="plan-header">
+<div class="plan-icon tv-icon">
+<svg fill="none" stroke="#f59e0b" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div class="plan-name">Basic - 20Mbps + TV</div>
+<div class="plan-tagline">WiFi + 400+ Live Channels</div>
+</div>
+<div class="plan-body">
+<div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
+<div class="plan-price-row">
+<div class="plan-price"><span class="rupee">₹</span><span class="price-amount">549</span></div>
+<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<span class="price-bonus hidden"></span></div>
+<div class="duration-compare">
+<div class="duration-compare-label">Plan Duration</div>
+<div class="duration-tabs">
+<button class="duration-tab active-dur" data-months="1 month" data-price="549"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="3 months" data-price="1,647"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="6 months" data-price="3,294"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab" data-months="12 months" data-price="6,588"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+</div>
+</div>
+<ul class="plan-features">
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>MaaTv, Gemini, Zee Telugu, Etv</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>400+ Live Channels</li>
+<li><div class="feat-check"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>HD &amp; SD Channel Bundle</li>
+</ul>
+</div>
+<div class="plan-footer">
+<button class="plan-btn accent-btn"><span class="btn-label">Explore</span><span class="btn-arrows"><span>&gt;</span><span>&gt;</span><span>&gt;</span></span></button>
+</div>
+</div>
+</div>
+</section>
+<!-- ════ FOOTER ════ -->
+<footer>
+<div class="footer-main">
+<div class="footer-contact">
+<h3>Get a Connection</h3>
+<div class="enquiry-form" id="enquiryForm">
+<div class="enq-field">
+<label>Your Name</label>
+<input autocomplete="off" id="enqName" placeholder="e.g. Ravi Kumar" type="text"/>
+</div>
+<div class="enq-field">
+<label>Mobile Number</label>
+<input autocomplete="off" id="enqPhone" maxlength="10" placeholder="e.g. 9876543210" type="tel"/>
+</div>
+<div class="enq-field">
+<label>Your Location</label>
+<input autocomplete="off" id="enqLocation" placeholder="e.g. Nagapattinam" type="text"/>
+</div>
+<div class="enq-field">
+<label>Plan Interest</label>
+<select id="enqPlan">
+<option disabled="" selected="" value="">— Select a Plan —</option>
+<optgroup label="Unlimited">
+<option>Silver - 40Mbps Unlimited — ₹599</option>
+<option>Gold - 50Mbps Unlimited — ₹699</option>
+<option>Gold plus - 75Mbps Unlimited — ₹949</option>
+<option>Elite - 100Mbps Unlimited — ₹1199</option>
+</optgroup>
+<optgroup label="WiFi + OTT">
+<option>Starter - 30Mbps OTT — ₹450</option>
+<option>Plus - 50Mbps OTT — ₹699</option>
+<option>Premium - 75Mbps OTT — ₹849</option>
+<option>Ultimate - 100Mbps OTT — ₹999</option>
+</optgroup>
+<optgroup label="Limited (FUP)">
+<option>Lite - 80Mbps FUP — ₹699 (1200GB)</option>
+<option>Core - 100Mbps FUP — ₹799 (1500GB)</option>
+</optgroup>
+<optgroup label="WiFi + TV">
+<option>Basic - 20Mbps + TV — ₹549</option>
+</optgroup>
+</select>
+</div>
+<button class="enq-submit" id="enqSubmit" onclick="submitEnquiry()">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14">
+<path d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+            Send Enquiry
+          </button>
+<div class="enq-msg" id="enqMsg"></div>
+</div>
+</div>
+<div class="footer-plans">
+<div class="footer-plans-title">Our Plans</div>
+<div class="footer-plan-chips">
+<a class="footer-chip" href="#unlimited">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+            Unlimited WiFi
+          </a>
+<a class="footer-chip" href="#ott">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+            WiFi + OTT
+          </a>
+<a class="footer-chip" href="#tv">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+            WiFi + TV
+          </a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© <span id="footerYear"></span> Sri Kamakshi Jagan Cable Network. All rights reserved.</p>
+<ul class="footer-bottom-links">
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+</ul>
+</div>
+</footer>
+<!-- ════ FLOATING CALL BAR ════ -->
+<div class="call-bar" id="callBar">
+<div class="call-side call-left" id="callLeft">
+<div class="call-side-inner">
+<a class="call-num-link" href="tel:9908624367">
+<div class="call-num-inner">
+<svg fill="none" height="13" stroke="rgba(34,197,94,0.8)" stroke-width="2.3" viewbox="0 0 24 24" width="13">
+<path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>9908624367</span>
+</div>
+</a>
+<div class="call-divider-wrap show" id="divLeft">
+<div class="call-divider-line"></div>
+</div>
+</div>
+</div>
+<div class="call-island">
+<div class="call-icon-wrap" id="callIconWrap">
+<svg stroke-width="2.3" viewbox="0 0 24 24">
+<path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<div class="call-side call-right" id="callRight">
+<div class="call-side-inner">
+<div class="call-divider-wrap show" id="divRight">
+<div class="call-divider-line"></div>
+</div>
+<a class="call-num-link" href="tel:6302787044">
+<div class="call-num-inner">
+<svg fill="none" height="13" stroke="rgba(34,197,94,0.8)" stroke-width="2.3" viewbox="0 0 24 24" width="13">
+<path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>6302787044</span>
+</div>
+</a>
+</div>
+</div>
+</div>
+<script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    /* ── Duration tab switching ── */
+    document.querySelectorAll('.duration-tabs').forEach(tabs => {
+      const card = tabs.closest('.plan-card');
+      const priceAmount   = card.querySelector('.price-amount');
+      const priceDuration = card.querySelector('.price-duration');
+      const priceBonus    = card.querySelector('.price-bonus');
+
+      // Determine if this card is OTT or TV (no bonus labels)
+      const section = card.closest('section');
+      const sectionId = section ? section.id : '';
+      const showBonus = !['ott', 'tv'].includes(sectionId);
+
+      tabs.querySelectorAll('.duration-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabs.querySelectorAll('.duration-tab').forEach(b => b.classList.remove('active-dur'));
+          btn.classList.add('active-dur');
+
+          const price   = btn.getAttribute('data-price');
+          const months  = btn.getAttribute('data-months');
+
+          if (priceAmount)   priceAmount.textContent   = price;
+          if (priceDuration) priceDuration.textContent = months;
+
+          // Update bonus label
+          if (priceBonus) {
+            const saveSp = btn.querySelector('.dur-save:not(.invisible)');
+            if (showBonus && saveSp) {
+              priceBonus.textContent = saveSp.textContent;
+              priceBonus.classList.remove('hidden');
+            } else {
+              priceBonus.textContent = '';
+              priceBonus.classList.add('hidden');
+            }
+          }
+        });
+      });
+    });
+
+    /* ── Enquiry Form → Google Sheets ── */
+    // STEP 1: Create a new Google Sheet at https://sheets.google.com
+    // STEP 2: In the sheet, go to Extensions > Apps Script, paste the code from enquiry-appscript.gs
+    // STEP 3: Deploy as Web App (Execute as: Me, Who has access: Anyone), copy the URL below
+    const SHEET_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+    async function submitEnquiry() {
+      const name     = document.getElementById('enqName').value.trim();
+      const phone    = document.getElementById('enqPhone').value.trim();
+      const location = document.getElementById('enqLocation').value.trim();
+      const plan     = document.getElementById('enqPlan').value;
+      const btn      = document.getElementById('enqSubmit');
+      const msg      = document.getElementById('enqMsg');
+
+      msg.className = 'enq-msg';
+      msg.style.display = 'none';
+
+      if (!name || !phone || !location || !plan) {
+        msg.className = 'enq-msg error';
+        msg.textContent = '⚠ Please fill in all fields.';
+        return;
+      }
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+        msg.className = 'enq-msg error';
+        msg.textContent = '⚠ Enter a valid 10-digit mobile number.';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        await fetch(SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, phone, location, plan,
+            timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+          })
+        });
+        msg.className = 'enq-msg success';
+        msg.textContent = '✓ Enquiry sent! We will contact you shortly.';
+        document.getElementById('enqName').value = '';
+        document.getElementById('enqPhone').value = '';
+        document.getElementById('enqLocation').value = '';
+        document.getElementById('enqPlan').value = '';
+      } catch (err) {
+        msg.className = 'enq-msg error';
+        msg.textContent = '✗ Failed to send. Please try again.';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg> Send Enquiry';
+      }
+    }
+
+    /* ── Scroll-triggered card animation ── */
+    const cards = document.querySelectorAll('.plan-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    cards.forEach(card => observer.observe(card));
+
+    /* ── Tab smooth scroll + animated indicator ── */
+    const sections = ['unlimited', 'ott', 'limited', 'tv'];
+    const tabBtns  = document.querySelectorAll('.tab-btn');
+
+    // Create sliding indicator element
+    const tabInner    = document.querySelector('.tab-strip-inner');
+    const indicator   = document.createElement('div');
+    indicator.className = 'tab-indicator';
+    tabInner.appendChild(indicator);
+
+    function moveIndicator(btn) {
+      const stripRect = tabInner.getBoundingClientRect();
+      const btnRect   = btn.getBoundingClientRect();
+      indicator.style.left  = (btnRect.left - stripRect.left) + 'px';
+      indicator.style.width = btnRect.width + 'px';
+    }
+
+    function setActiveTab(id) {
+      tabBtns.forEach(btn => {
+        const isActive = btn.getAttribute('href') === '#' + id;
+        btn.classList.toggle('active', isActive);
+        if (isActive) moveIndicator(btn);
+      });
+    }
+
+    // Init indicator position on load
+    window.addEventListener('load', () => {
+      const activeBtn = document.querySelector('.tab-btn.active');
+      if (activeBtn) moveIndicator(activeBtn);
+    });
+    // Also set after a short delay to ensure layout is ready
+    setTimeout(() => {
+      const activeBtn = document.querySelector('.tab-btn.active');
+      if (activeBtn) moveIndicator(activeBtn);
+    }, 100);
+
+    // Smooth scroll with correct offset on tab click
+    function getOffset() {
+      const navH = document.querySelector('nav').offsetHeight;
+      const tabH = document.querySelector('.tab-strip').offsetHeight;
+      return navH + tabH - 10 + 8;
+    }
+
+    function smoothScrollTo(targetY, duration) {
+      const startY = window.scrollY;
+      const diff   = targetY - startY;
+      let start    = null;
+      function ease(t) {
+        return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+      }
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const elapsed  = timestamp - start;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, startY + diff * ease(progress));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('href').replace('#', '');
+        const target   = document.getElementById(targetId);
+        if (!target) return;
+
+        // Ripple flash
+        btn.style.transition = 'background .15s';
+        btn.style.background = 'rgba(59,130,246,.08)';
+        setTimeout(() => btn.style.background = '', 300);
+
+        setActiveTab(targetId);
+
+        const top = target.getBoundingClientRect().top + window.scrollY - getOffset();
+        smoothScrollTo(top, 700);
+      });
+    });
+
+    // Update active tab on scroll
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const offset = getOffset();
+        let current = 'unlimited';
+        sections.forEach(id => {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= offset + 2) current = id;
+        });
+        setActiveTab(current);
+        scrollTicking = false;
+      });
+    }, { passive: true });
+
+    /* ── Floating call bar ── */
+    const callBar      = document.getElementById('callBar');
+    const callLeft     = document.getElementById('callLeft');
+    const callRight    = document.getElementById('callRight');
+    const callIconWrap = document.getElementById('callIconWrap');
+    const divLeft      = document.getElementById('divLeft');
+    const divRight     = document.getElementById('divRight');
+    let numbersVisible = false;
+    let scrollTimer    = null;
+    let ringInterval   = null;
+
+    function ringPhone() {
+      callIconWrap.classList.remove('ringing');
+      void callIconWrap.offsetWidth;
+      callIconWrap.classList.add('ringing');
+      callIconWrap.addEventListener('animationend', () => callIconWrap.classList.remove('ringing'), { once: true });
+    }
+    function expandNumbers() {
+      if (numbersVisible) return;
+      numbersVisible = true;
+      callLeft.classList.add('show'); callRight.classList.add('show');
+      divLeft.classList.add('show');  divRight.classList.add('show');
+    }
+    function collapseNumbers() {
+      if (!numbersVisible) return;
+      numbersVisible = false;
+      callLeft.classList.remove('show'); callRight.classList.remove('show');
+      divLeft.classList.remove('show');  divRight.classList.remove('show');
+    }
+
+    setTimeout(() => {
+      callBar.classList.add('entered');
+      setTimeout(() => {
+        expandNumbers();
+        ringPhone();
+        ringInterval = setInterval(ringPhone, 2000);
+      }, 700);
+    }, 2000);
+
+    function isFooterVisible() {
+      const footer = document.querySelector('footer');
+      if (!footer) return false;
+      return footer.getBoundingClientRect().top < window.innerHeight;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (isFooterVisible()) {
+        // Hide call bar entirely when footer is in view
+        callBar.classList.remove('entered');
+        collapseNumbers();
+        clearTimeout(scrollTimer);
+      } else {
+        // Show call bar when footer is not visible
+        callBar.classList.add('entered');
+        collapseNumbers();
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(expandNumbers, 800);
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>
