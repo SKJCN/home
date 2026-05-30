@@ -993,6 +993,164 @@
       .footer-plan-chips { justify-content: flex-start; }
       .footer-bottom { flex-direction: column; padding: 16px 24px; gap: 10px; text-align: center; }
     }
+
+    /* ════════════════════════════════
+       STICKY CALL BAR — Glossy Black
+    ════════════════════════════════ */
+    .call-bar {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18,18,20,0.98);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-top-color: rgba(255,255,255,0.18);
+      border-radius: 60px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.6),
+        0 2px 8px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 0 40px rgba(59,130,246,0.12);
+      padding: 5px 8px;
+      opacity: 0;
+      pointer-events: none;
+      backdrop-filter: blur(28px) saturate(1.8);
+      -webkit-backdrop-filter: blur(28px) saturate(1.8);
+      transition: transform .8s cubic-bezier(.22,1,.36,1), opacity .65s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .call-bar::before {
+      display: none;
+    }
+    .call-bar::after {
+      content: '';
+      position: absolute; inset: -10px;
+      border-radius: 72px;
+      border: 1px solid rgba(59,130,246,0.15);
+      animation: blueAura 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes blueAura {
+      0%,100% { opacity: 0.8; transform: scale(1); }
+      50%      { opacity: 0;   transform: scale(1.06); }
+    }
+    .call-bar.entered {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .call-island {
+      flex-shrink: 0;
+      flex-grow: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .call-icon-wrap {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: #1a4fa0;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow:
+        0 0 0 3px rgba(59,130,246,0.25),
+        0 4px 20px rgba(26,79,160,0.55),
+        0 1px 3px rgba(0,0,0,.5);
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: box-shadow .25s, transform .18s;
+      position: relative;
+    }
+    .call-icon-wrap::before {
+      display: none;
+    }
+    .call-icon-wrap:hover {
+      box-shadow:
+        0 0 0 5px rgba(59,130,246,.3),
+        0 6px 28px rgba(26,79,160,.7),
+        0 1px 3px rgba(0,0,0,.5);
+      transform: scale(1.07);
+    }
+    .call-icon-wrap svg {
+      width: 17px; height: 17px;
+      stroke: #ffffff; fill: none;
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.2));
+    }
+    .call-side {
+      display: flex; align-items: center;
+      overflow: hidden;
+      max-width: 0; opacity: 0;
+      transition:
+        max-width .65s cubic-bezier(.22,1,.36,1),
+        opacity   .5s ease,
+        padding   .65s cubic-bezier(.22,1,.36,1);
+    }
+    .call-side.show { max-width: 220px; opacity: 1; }
+    .call-left  { padding-left: 0; }
+    .call-left.show  { padding-left: 14px; }
+    .call-left  .call-num-inner { transform: translateX(48px); transition: transform .65s cubic-bezier(.22,1,.36,1); }
+    .call-left.show  .call-num-inner { transform: translateX(0); }
+    .call-right { padding-right: 0; }
+    .call-right.show { padding-right: 14px; }
+    .call-right .call-num-inner { transform: translateX(-48px); transition: transform .65s cubic-bezier(.22,1,.36,1); }
+    .call-right.show .call-num-inner { transform: translateX(0); }
+    .call-side-inner { display: flex; align-items: center; gap: 12px; }
+    .call-divider-wrap {
+      width: 1px; height: 26px; flex-shrink: 0;
+      overflow: hidden; max-width: 0; opacity: 0;
+      transition: max-width .45s .15s cubic-bezier(.22,1,.36,1), opacity .35s .15s ease;
+    }
+    .call-divider-wrap .call-divider-line {
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(59,130,246,.35) 30%, rgba(59,130,246,.35) 70%, transparent);
+    }
+    .call-divider-wrap.show { max-width: 2px; opacity: 1; }
+    .call-num-link { text-decoration: none; display: block; }
+    .call-num-inner { display: inline-flex; align-items: center; gap: 7px; }
+    .call-num-inner span {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 14px; font-weight: 600;
+      color: rgba(245,245,247,0.90);
+      letter-spacing: .6px; display: block;
+      transition: color .2s;
+    }
+    .call-num-link:hover .call-num-inner span { color: #93c5fd; }
+    .call-num-inner svg { flex-shrink: 0; transition: stroke .2s; }
+    .call-num-link:hover .call-num-inner svg { stroke: rgba(147,197,253,.95); }
+    .call-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
+      animation: dotPulse 2s ease-out infinite;
+    }
+    @keyframes dotPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+      70%  { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+    @keyframes phoneRing {
+      0%   { transform: rotate(0deg) scale(1); }
+      8%   { transform: rotate(16deg) scale(1.05); }
+      16%  { transform: rotate(-14deg) scale(1.05); }
+      24%  { transform: rotate(11deg) scale(1.02); }
+      32%  { transform: rotate(-8deg) scale(1.02); }
+      40%  { transform: rotate(5deg) scale(1); }
+      48%  { transform: rotate(-3deg) scale(1); }
+      56%  { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+    .call-icon-wrap.ringing { animation: phoneRing .7s cubic-bezier(.36,.07,.19,.97); }
+    @media (max-width: 768px) {
+      .call-bar { bottom: 20px; }
+      .call-num-inner span { font-size: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -1468,6 +1626,88 @@
       navLinks.forEach(link => link.classList.remove('active'));
       document.querySelector('.nav-links a[href="#"]').classList.add('active');
     });
+  </script>
+
+  <!-- ════ STICKY CALL BAR ════ -->
+  <div class="call-bar" id="callBar">
+    <div class="call-side call-left" id="callLeft">
+      <div class="call-side-inner">
+        <a class="call-num-link" href="tel:9908624367">
+          <div class="call-num-inner">
+            <span class="call-dot"></span>
+            <span>9908624367</span>
+          </div>
+        </a>
+        <div class="call-divider-wrap show" id="divLeft"><div class="call-divider-line"></div></div>
+      </div>
+    </div>
+    <div class="call-island">
+      <div class="call-icon-wrap" id="callIconWrap">
+        <svg viewBox="0 0 24 24" stroke-width="2.3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="call-side call-right" id="callRight">
+      <div class="call-side-inner">
+        <div class="call-divider-wrap show" id="divRight"><div class="call-divider-line"></div></div>
+        <a class="call-num-link" href="tel:6302787044">
+          <div class="call-num-inner">
+            <span class="call-dot"></span>
+            <span>6302787044</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Sticky call bar ── */
+    const callBar      = document.getElementById('callBar');
+    const callLeft     = document.getElementById('callLeft');
+    const callRight    = document.getElementById('callRight');
+    const callIconWrap = document.getElementById('callIconWrap');
+    const divLeft      = document.getElementById('divLeft');
+    const divRight     = document.getElementById('divRight');
+    let numbersVisible = false;
+    let scrollTimer    = null;
+
+    function ringPhone() {
+      callIconWrap.classList.remove('ringing');
+      void callIconWrap.offsetWidth;
+      callIconWrap.classList.add('ringing');
+      callIconWrap.addEventListener('animationend', () => callIconWrap.classList.remove('ringing'), { once: true });
+    }
+    function expandNumbers() {
+      if (numbersVisible) return;
+      numbersVisible = true;
+      callLeft.classList.add('show');  callRight.classList.add('show');
+      divLeft.classList.add('show');   divRight.classList.add('show');
+    }
+    function collapseNumbers() {
+      if (!numbersVisible) return;
+      numbersVisible = false;
+      callLeft.classList.remove('show');  callRight.classList.remove('show');
+      divLeft.classList.remove('show');   divRight.classList.remove('show');
+    }
+    function isFooterVisible() {
+      const footer = document.querySelector('footer');
+      return footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
+    }
+
+    setTimeout(() => {
+      callBar.classList.add('entered');
+      setTimeout(() => { expandNumbers(); ringPhone(); setInterval(ringPhone, 2500); }, 750);
+    }, 2000);
+
+    window.addEventListener('scroll', () => {
+      if (isFooterVisible()) {
+        callBar.classList.remove('entered'); collapseNumbers(); clearTimeout(scrollTimer);
+      } else {
+        callBar.classList.add('entered'); collapseNumbers(); clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(expandNumbers, 800);
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
