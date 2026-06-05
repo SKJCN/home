@@ -135,42 +135,60 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
       list-style: none;
     }
     .nav-links li a {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      position: relative;
       font-family: 'Nunito', sans-serif;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: .5px;
       text-transform: uppercase;
       text-decoration: none;
-      color: rgba(255,255,255,.7);
-      padding: 8px 16px;
-      border-radius: 8px;
-      transition: background .2s, color .2s;
-    }
-    .nav-links li a:hover {
-      background: rgba(255,255,255,.1);
       color: var(--white);
+      padding: 8px 16px;
+      border-radius: 0;
+      background: none;
+      border: none;
+      transition: color .2s;
+    }
+    /* Underline indicator */
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: calc(100% - 16px);
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform .25s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-links li a:hover::after {
+      transform: translateX(-50%) scaleX(1);
     }
     .nav-links li a.active {
-      background: rgba(245,158,11,.15);
-      color: var(--accent);
-      border: 1px solid rgba(245,158,11,.3);
+      color: var(--white);
+      background: none;
+      border: none;
     }
-    .nav-links li a.active svg { stroke: var(--accent); }
+    .nav-links li a.active::after {
+      transform: translateX(-50%) scaleX(1);
+    }
 
     .nav-login-btn {
       background: linear-gradient(135deg, var(--accent), #d97706) !important;
       color: var(--navy) !important;
       font-weight: 700 !important;
       border: none !important;
+      border-radius: 8px !important;
     }
     .nav-login-btn:hover { opacity: .9; }
+    .nav-login-btn::after { display: none !important; }
 
     /* ════════════════════════════════
        HERO SECTION
@@ -201,6 +219,7 @@
       border-radius: 50%;
       border: 1.5px solid rgba(26, 79, 160, 0.55);
       transform: translate(-50%, -50%);
+      opacity: 0;
       animation: wifiPulse 20s ease-out infinite;
     }
     /* Each ring starts at a different point in the cycle, creating a staggered wave */
@@ -982,16 +1001,228 @@
     }
     .footer-bottom-links a:hover { color: rgba(255,255,255,.75); }
 
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .nav-links { gap: 4px; }
-      .nav-links li a { padding: 8px 10px; font-size: 11px; }
-      .hero { padding-top: 100px; }
-      .packages { padding: 60px 20px 80px; }
-      .footer-main { flex-direction: column; padding: 36px 24px; }
+    /* ════════════════════════════════
+       HAMBURGER BUTTON
+    ════════════════════════════════ */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background .2s;
+      z-index: 300;
+    }
+    .nav-hamburger:hover { background: rgba(255,255,255,0.18); }
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .2s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile hero keyframes — must live outside @media blocks */
+    @keyframes slideFromTop {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideFromBottom {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes growLineH {
+      from { width: 0; }
+      to   { width: 140px; }
+    }
+
+    /* ════════════════════════════════
+       TABLET (max-width: 900px)
+    ════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; height: 72px; }
+      .nav-header-divider { height: 60px; }
+      .railwire-logo-wrap img { height: 28px; }
+      .nav-brand-name { font-size: 15px; }
+      .nav-links li a { padding: 7px 10px; font-size: 12px; }
+    }
+
+    /* ════════════════════════════════
+       MOBILE (max-width: 640px)
+    ════════════════════════════════ */
+    @media (max-width: 640px) {
+
+      /* ── NAV ── */
+      nav {
+        padding: 0 16px;
+        height: 64px;
+        justify-content: space-between;
+      }
+      /* Show hamburger */
+      .nav-hamburger { display: flex; }
+
+      /* Brand: compact side-by-side layout */
+      .nav-brand {
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+      }
+      .railwire-block { gap: 3px; }
+      .railwire-logo-wrap {
+        padding: 4px 8px;
+        gap: 5px;
+      }
+      .railwire-logo-wrap img { height: 22px; }
+      .nav-header-divider { height: 44px; }
+      .nav-brand-block { gap: 2px; }
+      .nav-brand-name { font-size: 12px; line-height: 1.15; }
+      .nav-brand-label { font-size: 9px; letter-spacing: 1.5px; }
+
+      /* Nav links → slide-down drawer */
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0; right: 0;
+        background: linear-gradient(160deg, var(--navy) 0%, #14357a 100%);
+        border-bottom: 3px solid var(--accent);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0 12px;
+        box-shadow: 0 8px 32px rgba(11,31,66,.45);
+        transform: translateY(-110%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+        z-index: 199;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+      .nav-links li a {
+        display: block;
+        padding: 14px 24px;
+        font-size: 14px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links li a::after { display: none; }
+      .nav-login-btn {
+        margin: 10px 24px 0 !important;
+        border-radius: 10px !important;
+        text-align: center !important;
+        display: block !important;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        padding-top: 64px;
+        min-height: 100svh;
+        justify-content: center;
+      }
+      /* Stack logo-mark vertically */
+      .logo-mark {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+      /* Railwire logo slides down from top */
+      .hero-logo-left {
+        padding-right: 0;
+        padding-bottom: 16px;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: slideFromTop .75s cubic-bezier(.22,1,.36,1) 2.2s forwards;
+      }
+      .hero-logo-left img { height: 50px; }
+      .hero-logo-left .logo-text-fallback { font-size: 28px; }
+
+      /* Vertical line becomes a horizontal bar */
+      .hero-vline {
+        width: 0;
+        height: 3px;
+        animation: growLineH .45s ease 1.8s forwards;
+        border-radius: 3px;
+        background: linear-gradient(to right,
+          transparent 0%,
+          var(--accent) 20%,
+          var(--accent) 80%,
+          transparent 100%);
+        margin: 0;
+      }
+      /* Keep horizontal bar even after .linked class is added */
+      .hero-vline.linked {
+        width: 140px;
+        height: 3px;
+        border-radius: 3px;
+        background: linear-gradient(to right,
+          transparent 0%,
+          var(--accent) 20%,
+          var(--accent) 80%,
+          transparent 100%);
+        transition: none;
+      }
+      .hero-vline .link-icon { display: none; }
+
+      /* Company name slides up from bottom */
+      .hero-logo-right {
+        padding-left: 0;
+        padding-top: 18px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideFromBottom .75s cubic-bezier(.22,1,.36,1) 2.2s forwards;
+      }
+      .hero-logo-right .company-name {
+        font-size: clamp(22px, 7vw, 30px);
+        text-align: center;
+      }
+
+      /* CTA buttons: stack full-width */
+      .hero-cta {
+        margin-top: 28px;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding: 0 24px;
+      }
+      .btn-primary, .btn-ghost {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+        padding: 15px 24px;
+        font-size: 13px;
+      }
+
+      /* ── PACKAGES ── */
+      .packages { padding: 48px 16px 64px; }
+      .section-header { margin-bottom: 36px; }
+      .pkg-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* ── FOOTER ── */
+      .footer-main { flex-direction: column; padding: 32px 20px; gap: 28px; }
       .footer-plans { align-items: flex-start; }
       .footer-plan-chips { justify-content: flex-start; }
-      .footer-bottom { flex-direction: column; padding: 16px 24px; gap: 10px; text-align: center; }
+      .footer-bottom { flex-direction: column; padding: 16px 20px; gap: 10px; text-align: center; }
+
+      /* ── CALL BAR ── */
+      .call-bar { bottom: 16px; max-width: calc(100vw - 32px); }
+      .call-num-inner span { font-size: 12px; }
+      .call-side.show { max-width: 160px; }
     }
 
     /* ════════════════════════════════
@@ -1179,30 +1410,20 @@
       </div>
     </a>
 
-    <ul class="nav-links">
+    <!-- Hamburger (mobile only) -->
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
       <li>
-        <a href="#" class="active">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12L11.204 3.045a1.5 1.5 0 012.092 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
-          </svg>
-          Home
-        </a>
+        <a href="#" class="active">Home</a>
       </li>
       <li>
-        <a href="packages.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/>
-          </svg>
-          Packages
-        </a>
+        <a href="packages.html">Packages</a>
       </li>
       <li>
-        <a href="index.html" class="nav-login-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/>
-          </svg>
-          Login
-        </a>
+        <a href="index.html" class="nav-login-btn">Login</a>
       </li>
     </ul>
   </nav>
@@ -1598,10 +1819,13 @@
   <script>
     /* ── Hero vline → link icon morph ──
        Line grows at 1.8s, sides slide in at 2.2s (+0.75s = done ~3s)
-       Morph triggers at 3.2s so it feels like a natural conclusion */
+       Morph triggers at 3.2s so it feels like a natural conclusion.
+       On mobile (<640px) we keep the horizontal line, skip the morph. */
     setTimeout(() => {
-      const vline = document.getElementById('heroVline');
-      if (vline) vline.classList.add('linked');
+      if (window.innerWidth > 640) {
+        const vline = document.getElementById('heroVline');
+        if (vline) vline.classList.add('linked');
+      }
     }, 3200);
 
     /* ── Footer year ── */
@@ -1621,10 +1845,11 @@
 
 
     /* ── Smooth active nav on scroll ── */
-    const navLinks = document.querySelectorAll('.nav-links a:not(.nav-login-btn)');
+    const scrollNavLinks = document.querySelectorAll('.nav-links a:not(.nav-login-btn)');
     window.addEventListener('scroll', () => {
-      navLinks.forEach(link => link.classList.remove('active'));
-      document.querySelector('.nav-links a[href="#"]').classList.add('active');
+      scrollNavLinks.forEach(link => link.classList.remove('active'));
+      const homeLink = document.querySelector('.nav-links a[href="#"]');
+      if (homeLink) homeLink.classList.add('active');
     });
   </script>
 
@@ -1660,6 +1885,35 @@
       </div>
     </div>
   </div>
+
+  <script>
+    /* ── Hamburger menu ── */
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks  = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+      });
+      // Close menu when a link is clicked
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', false);
+        });
+      });
+      // Close when tapping outside
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', false);
+        }
+      });
+    }
+  </script>
 
   <script>
     /* ── Sticky call bar ── */
