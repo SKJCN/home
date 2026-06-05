@@ -137,42 +137,60 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
       list-style: none;
     }
     .nav-links li a {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      position: relative;
       font-family: 'Nunito', sans-serif;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: .5px;
       text-transform: uppercase;
       text-decoration: none;
-      color: rgba(255,255,255,.7);
-      padding: 8px 16px;
-      border-radius: 8px;
-      transition: background .2s, color .2s;
-    }
-    .nav-links li a:hover {
-      background: rgba(255,255,255,.1);
       color: var(--white);
+      padding: 8px 16px;
+      border-radius: 0;
+      background: none;
+      border: none;
+      transition: color .2s;
+    }
+    /* Underline indicator */
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: calc(100% - 16px);
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform .25s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-links li a:hover::after {
+      transform: translateX(-50%) scaleX(1);
     }
     .nav-links li a.active {
-      background: rgba(245,158,11,.15);
-      color: var(--accent);
-      border: 1px solid rgba(245,158,11,.3);
+      color: var(--white);
+      background: none;
+      border: none;
     }
-    .nav-links li a.active svg { stroke: var(--accent); }
+    .nav-links li a.active::after {
+      transform: translateX(-50%) scaleX(1);
+    }
 
     .nav-login-btn {
       background: linear-gradient(135deg, var(--accent), #d97706) !important;
       color: var(--navy) !important;
       font-weight: 700 !important;
       border: none !important;
+      border-radius: 8px !important;
     }
     .nav-login-btn:hover { opacity: .9; }
+    .nav-login-btn::after { display: none !important; }
 
     /* ════════════════════════════════
        PAGE HERO (compact)
@@ -963,28 +981,145 @@
       100% { transform: rotate(0deg) scale(1); }
     }
     .call-icon-wrap.ringing { animation: phoneRing .7s cubic-bezier(.36,.07,.19,.97); }
-    @media (max-width: 768px) {
-      .call-bar { bottom: 20px; }
-      .call-num-inner span { font-size: 12px; }
+    /* ════════════════════════════════
+       HAMBURGER BUTTON
+    ════════════════════════════════ */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background .2s;
+      z-index: 300;
+    }
+    .nav-hamburger:hover { background: rgba(255,255,255,0.18); }
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .2s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ════════════════════════════════
+       TABLET (max-width: 900px)
+    ════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; height: 72px; }
+      .nav-header-divider { height: 60px; }
+      .railwire-logo-wrap img { height: 28px; }
+      .nav-brand-name { font-size: 15px; }
+      .nav-links li a { padding: 7px 10px; font-size: 12px; }
+      .tab-strip { top: 72px; }
+      .page-hero { padding-top: 72px; }
+      .pkg-section { padding: 56px 28px 64px; }
+      .pkg-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .footer-main { padding: 40px 32px; gap: 32px; }
+      .footer-bottom { padding: 16px 32px; }
+      .enquiry-form { width: 100%; max-width: 320px; }
     }
 
     /* ════════════════════════════════
-       RESPONSIVE
+       MOBILE (max-width: 640px)
     ════════════════════════════════ */
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .nav-links { gap: 4px; }
-      .nav-links li a { padding: 8px 10px; font-size: 11px; }
-      .page-hero-inner { padding: 44px 20px 42px; }
-      .tab-strip-inner { padding: 0 16px; }
-      .tab-btn { padding: 14px 16px; font-size: 11px; }
-      .pkg-section { padding: 48px 20px 56px; }
-      .pkg-grid { grid-template-columns: 1fr; }
-      .footer-main { flex-direction: column; padding: 36px 24px; }
+    @media (max-width: 640px) {
+
+      /* ── NAV ── */
+      nav { padding: 0 16px; height: 64px; }
+      .nav-hamburger { display: flex; }
+      .nav-brand { gap: 8px; flex: 1; min-width: 0; }
+      .railwire-block { gap: 3px; }
+      .railwire-logo-wrap { padding: 4px 8px; gap: 5px; }
+      .railwire-logo-wrap img { height: 22px; }
+      .nav-header-divider { height: 44px; }
+      .nav-brand-block { gap: 2px; }
+      .nav-brand-name { font-size: 12px; line-height: 1.15; }
+      .nav-brand-label { font-size: 9px; letter-spacing: 1.5px; }
+
+      /* Nav drawer */
+      .nav-links {
+        position: fixed;
+        top: 64px;
+        left: 0; right: 0;
+        background: linear-gradient(160deg, var(--navy) 0%, #14357a 100%);
+        border-bottom: 3px solid var(--accent);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0 12px;
+        box-shadow: 0 8px 32px rgba(11,31,66,.45);
+        transform: translateY(-110%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+        z-index: 199;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+      .nav-links li a {
+        display: block;
+        padding: 14px 24px;
+        font-size: 14px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links li a::after { display: none; }
+      .nav-login-btn {
+        margin: 10px 24px 0 !important;
+        border-radius: 10px !important;
+        text-align: center !important;
+        display: block !important;
+      }
+
+      /* ── PAGE HERO ── */
+      .page-hero { padding-top: 64px; }
+      .page-hero-inner { padding: 36px 20px 34px; }
+      .page-hero-title { font-size: clamp(24px, 7vw, 34px); }
+      .page-hero-sub { font-size: 13.5px; }
+
+      /* ── TAB STRIP ── */
+      .tab-strip { top: 64px; }
+      .tab-strip-inner { padding: 0 12px; }
+      .tab-btn { padding: 13px 13px; font-size: 11px; gap: 5px; }
+      .tab-btn svg { width: 13px; height: 13px; }
+
+      /* ── PACKAGES GRID ── */
+      .pkg-section { padding: 40px 16px 52px; }
+      .pkg-section + .pkg-section { padding-top: 0; }
+      .section-header { margin-bottom: 32px; }
+      .pkg-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Duration tabs: 2-column wrap on small screens */
+      .duration-tabs { flex-wrap: wrap; }
+      .duration-tab { flex: 1 1 calc(50% - 1px); min-width: 0; }
+
+      /* ── FOOTER ── */
+      .footer-main { flex-direction: column; padding: 32px 20px; gap: 28px; }
       .footer-plans { align-items: flex-start; }
       .footer-plan-chips { justify-content: flex-start; }
-      .footer-bottom { flex-direction: column; padding: 16px 24px; gap: 10px; text-align: center; }
-      .call-bar { bottom: 20px; }
+      .footer-bottom { flex-direction: column; padding: 16px 20px; gap: 10px; text-align: center; }
+      .enquiry-form { width: 100%; }
+
+      /* ── CALL BAR ── */
+      .call-bar { bottom: 16px; max-width: calc(100vw - 32px); }
+      .call-num-inner span { font-size: 12px; }
+      .call-side.show { max-width: 160px; }
     }
   
     .plan-card:active .plan-btn { transform: translateY(-2px); }
@@ -1013,47 +1148,7 @@
     }
     .tab-btn.active { border-bottom-color: transparent !important; }
 
-  
-    /* ════════════════════════════════
-       NAV ICON PROFESSIONAL ANIMATIONS
-    ════════════════════════════════ */
 
-    .nav-links li a {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .nav-links li a svg {
-      display: inline-block;
-      flex-shrink: 0;
-      transform-origin: center;
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1),
-                  stroke .25s ease,
-                  opacity .25s ease;
-    }
-
-
-
-    /* ── HOME: clean lift + stroke brighten ── */
-    .nav-link-home:hover svg {
-      transform: translateY(-2px) scale(1.12);
-      stroke: #93c5fd;
-    }
-
-    /* ── PACKAGES: crisp scale-up, no flip ── */
-    .nav-link-packages:hover svg {
-      transform: scale(1.18) rotate(-8deg);
-      stroke: var(--accent);
-    }
-
-    /* ── LOGIN: forward nudge ── */
-    .nav-link-login:hover svg {
-      transform: translateX(3px) scale(1.12);
-      stroke: var(--navy);
-    }
-
-    /* Active state icon color */
-    .nav-link-packages.active svg { stroke: var(--accent); }
 
     /* ════════════════════════════════
        DURATION COMPARISON WIDGET
@@ -1131,32 +1226,21 @@
 <span class="nav-brand-label">LCO</span>
 </div>
 </a>
-<ul class="nav-links">
+<ul class="nav-links" id="navLinks">
 <li>
-<a class="nav-link-home" href="https://skjcn.github.io/home">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14">
-<path d="M2.25 12L11.204 3.045a1.5 1.5 0 012.092 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-          Home
-        </a>
+<a class="nav-link-home" href="https://skjcn.github.io/home">Home</a>
 </li>
 <li>
-<a class="active nav-link-packages" href="packages.html">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14">
-<path d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-          Packages
-        </a>
+<a class="active nav-link-packages" href="packages.html">Packages</a>
 </li>
 <li>
-<a class="nav-login-btn nav-link-login" href="index.html">
-<svg fill="none" height="14" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="14">
-<path d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-          Login
-        </a>
+<a class="nav-login-btn nav-link-login" href="index.html">Login</a>
 </li>
 </ul>
+<!-- Hamburger (mobile only) -->
+<button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
 </nav>
 <!-- ════ PAGE HERO ════ -->
 <div class="page-hero">
@@ -1805,6 +1889,33 @@
 </div>
 </div>
 </div>
+<script>
+    /* ── Hamburger menu ── */
+    (function() {
+      const hamburger = document.getElementById('navHamburger');
+      const navLinks  = document.getElementById('navLinks');
+      if (!hamburger || !navLinks) return;
+      hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
 <script>
     document.getElementById('footerYear').textContent = new Date().getFullYear();
 
