@@ -316,32 +316,60 @@
       transform: translateY(-1px);
     }
 
-    /* Per-category active colours */
-    .tab-btn[href="#unlimited"].active {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    /* Per-category colours — matching each section's own colour */
+    .tab-btn[href="#unlimited"] {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
       color: var(--white);
       border-color: transparent;
-      box-shadow: 0 6px 20px rgba(26,79,160,.35);
+      box-shadow: 0 4px 14px rgba(59,130,246,.30);
     }
-    .tab-btn[href="#ott"].active {
+    .tab-btn[href="#ott"] {
       background: linear-gradient(135deg, #059669 0%, #10b981 100%);
       color: var(--white);
       border-color: transparent;
-      box-shadow: 0 6px 20px rgba(16,185,129,.35);
+      box-shadow: 0 4px 14px rgba(16,185,129,.30);
     }
-    .tab-btn[href="#limited"].active {
+    .tab-btn[href="#limited"] {
       background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
       color: var(--white);
       border-color: transparent;
-      box-shadow: 0 6px 20px rgba(139,92,246,.35);
+      box-shadow: 0 4px 14px rgba(139,92,246,.30);
     }
-    .tab-btn[href="#tv"].active {
+    .tab-btn[href="#tv"] {
       background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
       color: var(--white);
       border-color: transparent;
-      box-shadow: 0 6px 20px rgba(245,158,11,.35);
+      box-shadow: 0 4px 14px rgba(245,158,11,.30);
+    }
+
+    /* Scrolled-in: keep all non-active tabs fully opaque */
+    .tab-strip.scrolled-in .tab-btn:not(.active) {
+      opacity: 1;
     }
     .tab-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* All tabs: smooth transitions always applied */
+    .tab-btn {
+      max-width: 220px;
+      transition: opacity .25s, max-width .3s cubic-bezier(.22,1,.36,1),
+                  padding .3s, margin .3s, gap .3s, border-width .3s,
+                  color .2s, border-color .2s, background .2s,
+                  box-shadow .2s, transform .15s;
+    }
+
+    /* Hide the CURRENT section's tab — only after user has scrolled into sections */
+    .tab-strip.scrolled-in .tab-btn.active {
+      opacity: 0 !important;
+      pointer-events: none;
+      max-width: 0;
+      padding-left: 0;
+      padding-right: 0;
+      border-width: 0;
+      margin: 0;
+      gap: 0;
+      overflow: hidden;
+      flex-shrink: 1;
+    }
 
     /* ════════════════════════════════
        PACKAGES SECTIONS
@@ -1185,106 +1213,72 @@
       letter-spacing: .5px;
       text-transform: capitalize;
       color: var(--muted);
-      margin-bottom: 7px;
+      margin-bottom: 10px;
     }
     .duration-tabs {
       display: flex;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1.5px solid var(--border);
-      background: var(--light);
+      gap: 8px;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      border-radius: 0;
+      flex-wrap: wrap;
     }
     .duration-tab {
       flex: 1;
+      min-width: 42px;
+      max-width: 42px;
+      height: 42px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 8px 2px;
+      padding: 0;
       cursor: pointer;
-      border: none;
-      background: transparent;
-      transition: background .18s, color .18s;
-      border-right: 1px solid var(--border);
-      gap: 3px;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      background: var(--white);
+      transition: border-color .18s, background .18s, box-shadow .18s, transform .15s;
+      gap: 1px;
       position: relative;
     }
-    .duration-tab:last-child { border-right: none; }
+    .duration-tab:hover {
+      transform: translateY(-2px);
+    }
+    section#unlimited .duration-tab:hover { border-color: #3b82f6; box-shadow: 0 4px 12px rgba(59,130,246,.2); }
+    section#ott       .duration-tab:hover { border-color: #10b981; box-shadow: 0 4px 12px rgba(16,185,129,.2); }
+    section#limited   .duration-tab:hover { border-color: #8b5cf6; box-shadow: 0 4px 12px rgba(139,92,246,.2); }
+    section#tv        .duration-tab:hover { border-color: #f59e0b; box-shadow: 0 4px 12px rgba(245,158,11,.2); }
     .duration-tab.active-dur {
-      background: var(--white);
-      box-shadow: inset 0 -2px 0 var(--sky);
+      border-width: 2px;
     }
-    .dur-period {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .2px;
-      text-transform: capitalize;
-      color: var(--muted);
+    .dur-num {
+      font-family: 'Nunito', sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--navy);
     }
-    .duration-tab.active-dur .dur-period { color: var(--blue); }
-    .dur-save {
-      font-size: 8.5px;
+    .dur-unit {
+      font-size: 6px;
       font-weight: 700;
-      color: var(--green);
       letter-spacing: .3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1;
     }
-    .dur-save.invisible { visibility: hidden; }
+    .duration-tab.active-dur .dur-num  { color: #fff; }
+    .duration-tab.active-dur .dur-unit { color: rgba(255,255,255,.75); }
 
-    /* ════════════════════════════════
-       MOBILE DURATION PILL SWITCHER
-       (replaces cramped tab row)
-    ════════════════════════════════ */
     @media (max-width: 640px) {
-      .duration-tabs {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-radius: 10px;
-        gap: 0;
-        border: 1.5px solid var(--border);
-        background: var(--light);
-        overflow: hidden;
-      }
-      .duration-tab {
-        flex: unset;
-        padding: 11px 6px 10px;
-        border-right: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        gap: 4px;
-      }
-      /* Remove right border on 2nd column */
-      .duration-tab:nth-child(2n) {
-        border-right: none;
-      }
-      /* Remove bottom border on last row */
-      .duration-tab:nth-last-child(-n+2) {
-        border-bottom: none;
-      }
-      .dur-period {
-        font-size: 11px;
-        font-weight: 800;
-      }
-      .dur-save {
-        font-size: 9px;
-      }
-      .duration-tab.active-dur {
-        background: var(--white);
-        box-shadow: inset 0 0 0 2px var(--sky);
-      }
+      .duration-tabs { gap: 5px; }
+      .duration-tab  { min-width: 35px; max-width: 35px; height: 35px; }
+      .dur-num       { font-size: 10px; }
+      .dur-unit      { font-size: 5.5px; }
     }
-
-    /* ════════════════════════════════
-       TABLET DURATION TABS
-    ════════════════════════════════ */
     @media (min-width: 641px) and (max-width: 900px) {
-      .duration-tab {
-        padding: 9px 4px;
-      }
-      .dur-period {
-        font-size: 10.5px;
-      }
-      .dur-save {
-        font-size: 8.5px;
-      }
+      .duration-tab { min-width: 40px; max-width: 40px; height: 40px; }
+      .dur-num      { font-size: 10px; }
     }
 
   </style>
@@ -1391,15 +1385,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">599</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="599"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="1,797"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
-<button class="duration-tab" data-months="6 months" data-price="3,594"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
-<button class="duration-tab" data-months="10 months" data-price="5,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="599"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="1,797"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="3,594"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="5,990"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1428,15 +1422,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">699</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="699"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,097"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
-<button class="duration-tab" data-months="6 months" data-price="4,194"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
-<button class="duration-tab" data-months="10 months" data-price="6,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="699"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="2,097"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="4,194"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="6,990"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1467,15 +1461,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">949</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="949"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,847"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
-<button class="duration-tab" data-months="6 months" data-price="5,694"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
-<button class="duration-tab" data-months="10 months" data-price="9,490"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="949"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="2,847"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="5,694"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="9,490"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1505,15 +1499,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">1199</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="1,199"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="3,597"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
-<button class="duration-tab" data-months="6 months" data-price="7,194"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
-<button class="duration-tab" data-months="10 months" data-price="11,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="1,199"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="3,597"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="7,194"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="11,990"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1558,15 +1552,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">450</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="450"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="1,350"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="6 months" data-price="2,700"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="12 months" data-price="5,400"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="450"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="90 days" data-price="1,350"><span class="dur-num">90</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="180 days" data-price="2,700"><span class="dur-num">180</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="5,400"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1597,15 +1591,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">699</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="699"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,097"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="6 months" data-price="4,194"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="12 months" data-price="8,388"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="699"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="90 days" data-price="2,097"><span class="dur-num">90</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="180 days" data-price="4,194"><span class="dur-num">180</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="8,388"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1635,15 +1629,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">849</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="849"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,547"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="6 months" data-price="5,094"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="12 months" data-price="10,188"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="849"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="90 days" data-price="2,547"><span class="dur-num">90</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="180 days" data-price="5,094"><span class="dur-num">180</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="10,188"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1673,15 +1667,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">999</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="999"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,997"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="6 months" data-price="5,994"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="12 months" data-price="11,988"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="999"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="90 days" data-price="2,997"><span class="dur-num">90</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="180 days" data-price="5,994"><span class="dur-num">180</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="11,988"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -1727,15 +1721,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">699</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="699"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,097"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
-<button class="duration-tab" data-months="6 months" data-price="4,194"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
-<button class="duration-tab" data-months="10 months" data-price="6,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="699"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="2,097"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="4,194"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="6,990"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <div class="plan-fup-tag">
@@ -1768,15 +1762,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">799</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="799"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="2,397"><span class="dur-period">3 Months</span><span class="dur-save">+10 Days</span></button>
-<button class="duration-tab" data-months="6 months" data-price="4,794"><span class="dur-period">6 Months</span><span class="dur-save">+1 Month</span></button>
-<button class="duration-tab" data-months="10 months" data-price="7,990"><span class="dur-period">10 Months</span><span class="dur-save">+2 Months</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="799"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="2,397"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="4,794"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="7,990"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <div class="plan-fup-tag">
@@ -1826,15 +1820,15 @@
 <div class="offer-tag"><span class="offer-dot"></span> Live Offer</div>
 <div class="plan-price-row">
 <div class="plan-price"><span class="rupee">₹</span><span class="price-amount">549</span></div>
-<div class="plan-price-mo">for <span class="price-duration">1 month</span></div>
+<div class="plan-price-mo">for <span class="price-duration">30 days</span></div>
 <span class="price-bonus hidden"></span></div>
 <div class="duration-compare">
 <div class="duration-compare-label">Plan Duration</div>
 <div class="duration-tabs">
-<button class="duration-tab active-dur" data-months="1 month" data-price="549"><span class="dur-period">1 Month</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="3 months" data-price="1,647"><span class="dur-period">3 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="6 months" data-price="3,294"><span class="dur-period">6 Months</span><span class="dur-save invisible">-</span></button>
-<button class="duration-tab" data-months="12 months" data-price="6,588"><span class="dur-period">12 Months</span><span class="dur-save invisible">-</span></button>
+<button class="duration-tab active-dur" data-months="30 days" data-price="549"><span class="dur-num">30</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="100 days" data-price="1,647"><span class="dur-num">100</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="210 days" data-price="3,294"><span class="dur-num">210</span><span class="dur-unit">days</span></button>
+<button class="duration-tab" data-months="360 days" data-price="6,588"><span class="dur-num">360</span><span class="dur-unit">days</span></button>
 </div>
 </div>
 <ul class="plan-features">
@@ -2019,10 +2013,28 @@
       const sectionId = section ? section.id : '';
       const showBonus = !['ott', 'tv'].includes(sectionId);
 
+      // Section colour map
+      const sectionColors = {
+        unlimited: { bg: 'linear-gradient(135deg,#2563eb,#3b82f6)', border: '#3b82f6', shadow: '0 4px 14px rgba(59,130,246,.4)' },
+        ott:       { bg: 'linear-gradient(135deg,#059669,#10b981)', border: '#10b981', shadow: '0 4px 14px rgba(16,185,129,.4)' },
+        limited:   { bg: 'linear-gradient(135deg,#7c3aed,#8b5cf6)', border: '#8b5cf6', shadow: '0 4px 14px rgba(139,92,246,.4)' },
+        tv:        { bg: 'linear-gradient(135deg,#d97706,#f59e0b)', border: '#f59e0b', shadow: '0 4px 14px rgba(245,158,11,.4)' },
+      };
+      const col = sectionColors[sectionId] || sectionColors.unlimited;
+
       tabs.querySelectorAll('.duration-tab').forEach(btn => {
         btn.addEventListener('click', () => {
-          tabs.querySelectorAll('.duration-tab').forEach(b => b.classList.remove('active-dur'));
+          // Clear all active styles first
+          tabs.querySelectorAll('.duration-tab').forEach(b => {
+            b.classList.remove('active-dur');
+            b.style.background   = '';
+            b.style.borderColor  = '';
+            b.style.boxShadow    = '';
+          });
           btn.classList.add('active-dur');
+          btn.style.background  = col.bg;
+          btn.style.borderColor = col.border;
+          btn.style.boxShadow   = col.shadow;
 
           const price   = btn.getAttribute('data-price');
           const months  = btn.getAttribute('data-months');
@@ -2045,6 +2057,24 @@
       });
     });
 
+    /* ── Init active-dur inline styles on load ── */
+    (function() {
+      const sectionColors = {
+        unlimited: { bg: 'linear-gradient(135deg,#2563eb,#3b82f6)', border: '#3b82f6', shadow: '0 4px 14px rgba(59,130,246,.4)' },
+        ott:       { bg: 'linear-gradient(135deg,#059669,#10b981)', border: '#10b981', shadow: '0 4px 14px rgba(16,185,129,.4)' },
+        limited:   { bg: 'linear-gradient(135deg,#7c3aed,#8b5cf6)', border: '#8b5cf6', shadow: '0 4px 14px rgba(139,92,246,.4)' },
+        tv:        { bg: 'linear-gradient(135deg,#d97706,#f59e0b)', border: '#f59e0b', shadow: '0 4px 14px rgba(245,158,11,.4)' },
+      };
+      document.querySelectorAll('.duration-tab.active-dur').forEach(btn => {
+        const sec = btn.closest('section');
+        const id  = sec ? sec.id : 'unlimited';
+        const col = sectionColors[id] || sectionColors.unlimited;
+        btn.style.background  = col.bg;
+        btn.style.borderColor = col.border;
+        btn.style.boxShadow   = col.shadow;
+      });
+    })();
+
     /* ── Enquiry Form → Google Sheets ── */
     /* ── Scroll-triggered card animation ── */
     const cards = document.querySelectorAll('.plan-card');
@@ -2055,41 +2085,22 @@
     }, { threshold: 0.12 });
     cards.forEach(card => observer.observe(card));
 
-    /* ── Tab smooth scroll + animated indicator ── */
+    /* ── Tab smooth scroll ── */
     const sections = ['unlimited', 'ott', 'limited', 'tv'];
     const tabBtns  = document.querySelectorAll('.tab-btn');
 
-    // Create sliding indicator element
-    const tabInner    = document.querySelector('.tab-strip-inner');
-    const indicator   = document.createElement('div');
-    indicator.className = 'tab-indicator';
-    tabInner.appendChild(indicator);
+    const tabStrip = document.querySelector('.tab-strip');
+    const hero     = document.querySelector('.page-hero');
 
-    function moveIndicator(btn) {
-      const stripRect = tabInner.getBoundingClientRect();
-      const btnRect   = btn.getBoundingClientRect();
-      indicator.style.left  = (btnRect.left - stripRect.left) + 'px';
-      indicator.style.width = btnRect.width + 'px';
+    function heroBottom() {
+      return hero.offsetTop + hero.offsetHeight;
     }
 
     function setActiveTab(id) {
       tabBtns.forEach(btn => {
-        const isActive = btn.getAttribute('href') === '#' + id;
-        btn.classList.toggle('active', isActive);
-        if (isActive) moveIndicator(btn);
+        btn.classList.toggle('active', btn.getAttribute('href') === '#' + id);
       });
     }
-
-    // Init indicator position on load
-    window.addEventListener('load', () => {
-      const activeBtn = document.querySelector('.tab-btn.active');
-      if (activeBtn) moveIndicator(activeBtn);
-    });
-    // Also set after a short delay to ensure layout is ready
-    setTimeout(() => {
-      const activeBtn = document.querySelector('.tab-btn.active');
-      if (activeBtn) moveIndicator(activeBtn);
-    }, 100);
 
     // Smooth scroll with correct offset on tab click
     function getOffset() {
@@ -2141,6 +2152,11 @@
       scrollTicking = true;
       requestAnimationFrame(() => {
         const offset = getOffset();
+
+        // Show/hide the active-tab-collapse behaviour only after hero is passed
+        const pastHero = window.scrollY > heroBottom() - 60;
+        tabStrip.classList.toggle('scrolled-in', pastHero);
+
         let current = 'unlimited';
         sections.forEach(id => {
           const el = document.getElementById(id);
