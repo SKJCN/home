@@ -633,6 +633,7 @@
     .plan-btn .btn-label {
       position: relative;
       z-index: 1;
+      white-space: nowrap;
       transition: transform .3s cubic-bezier(.22,1,.36,1);
     }
     .plan-card:hover .plan-btn .btn-label { transform: translateX(-4px); }
@@ -1168,7 +1169,8 @@
       .feat-check { width: 14px; height: 14px; }
       .feat-check svg { width: 8px; height: 8px; }
 
-      .plan-btn { padding: 10px 12px; font-size: 11px; letter-spacing: .3px; }
+      .plan-btn { padding: 10px 10px; font-size: 10.5px; letter-spacing: .2px; }
+      .plan-btn .btn-label { white-space: nowrap; }
       .plan-badge { font-size: 8px; padding: 3px 7px; top: 10px; right: 10px; }
 
       .card-accent-bar { height: 3px; }
@@ -1699,7 +1701,7 @@
 <path d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
 </div>
-<div class="plan-name">Elite - 100Mbps Unlimited</div>
+<div class="plan-name">Diamond - 100Mbps Unlimited</div>
 <div class="plan-tagline">Work &amp; Entertainment Pro</div>
 </div>
 <div class="plan-body">
@@ -2224,7 +2226,7 @@
       ]
     },
     elite100: {
-      title: 'Elite — 100 Mbps Unlimited',
+      title: 'Diamond — 100 Mbps Unlimited',
       type:  'unlimited',
       points: [
         { icon: 'wifi',     text: '<strong>100 Mbps — Maximum Residential Speed</strong> — The fastest unlimited plan available. Full 100 Mbps, zero compromise.' },
@@ -2254,7 +2256,7 @@
       type:  'fup',
       points: [
         { icon: 'zap',    text: '<strong>100 Mbps Until Your 1500 GB Limit</strong> — Maximum speed right up to 1500 GB — faster than most unlimited plans during active use.' },
-        { icon: 'check',  text: '<strong>Ideal for Heavy-but-Not-Unlimited Users</strong> — If 1500 GB covers your household, you get elite 100 Mbps without paying unlimited pricing.' },
+        { icon: 'check',  text: '<strong>Ideal for Heavy-but-Not-Unlimited Users</strong> — If 1500 GB covers your household, you get diamond-tier 100 Mbps without paying unlimited pricing.' },
         { icon: 'star',   text: '<strong>Fastest FUP Plan Available</strong> — 100 Mbps FUP delivers top-tier speeds for streaming 4K, gaming and large downloads.' },
         { icon: 'laptop', text: '<strong>Excellent for Remote Workers</strong> — Large uploads, video calls, cloud syncs — 100 Mbps handles professional workloads with ease.' },
         { icon: 'db',     text: '<strong>Post-FUP Continuity</strong> — After 1500 GB, speed reduces but connection continues — never fully cut off mid-month.' },
