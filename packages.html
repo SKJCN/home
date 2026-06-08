@@ -1050,8 +1050,8 @@
       .tab-strip-inner { padding: 10px 20px; gap: 6px; }
       .tab-btn { padding: 9px 14px; font-size: 11px; gap: 6px; }
       .page-hero { padding-top: 72px; }
-      .pkg-section { padding: 56px 28px 64px; }
-      .pkg-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .pkg-section { padding: 48px 20px 56px; }
+      .pkg-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .footer-main { padding: 40px 32px; gap: 32px; }
       .footer-bottom { padding: 16px 32px; }
     }
@@ -1133,29 +1133,45 @@
       .tab-indicator { display: none; }
 
       /* ── PACKAGES GRID ── */
-      .pkg-section { padding: 40px 16px 52px; }
+      .pkg-section { padding: 28px 10px 36px; }
       .pkg-section + .pkg-section { padding-top: 0; }
-      .section-header { margin-bottom: 32px; }
-      .pkg-grid { grid-template-columns: 1fr; gap: 16px; }
+      .section-header { margin-bottom: 20px; }
+      .section-title { font-size: clamp(18px, 4.5vw, 24px); }
+      .section-desc { font-size: 12px; }
+      .pkg-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-      /* Duration tabs on mobile: handled via dedicated grid rules above */
+      /* ── Compact card internals on mobile ── */
+      .plan-header { padding: 12px 12px 10px; }
+      .plan-body   { padding: 10px 12px; }
+      .plan-footer { padding: 8px 12px 14px; }
 
-      /* ── Better tap targets for plan buttons ── */
-      .plan-btn {
-        padding: 15px 20px;
-        font-size: 14px;
-      }
-      .plan-footer {
-        padding: 14px 18px 22px;
-      }
+      .plan-icon { width: 32px; height: 32px; border-radius: 8px; margin-bottom: 8px; }
+      .plan-icon svg { width: 17px; height: 17px; }
+      .plan-name   { font-size: 13px; margin-bottom: 2px; }
+      .plan-tagline { font-size: 10px; }
 
-      /* ── Plan header bigger touch area ── */
-      .plan-header {
-        padding: 18px 18px 14px;
-      }
-      .plan-body {
-        padding: 16px 18px;
-      }
+      .plan-price  { font-size: clamp(18px, 5vw, 24px); }
+      .plan-price .rupee { font-size: 13px; }
+      .plan-price-row { margin-bottom: 8px; }
+      .fup-save-parens { font-size: 11px; }
+
+      .duration-compare { margin-bottom: 10px; }
+      .duration-compare-label { font-size: 9px; margin-bottom: 6px; }
+      .duration-tabs { gap: 4px; }
+      .duration-tab .dur-circle { width: 30px; height: 30px; }
+      .dur-num  { font-size: 9px; }
+      .dur-unit { font-size: 5px; }
+      .dur-offer-badge { font-size: 9px; }
+
+      .plan-features { gap: 6px; }
+      .plan-features li { font-size: 11px; gap: 6px; }
+      .feat-check { width: 14px; height: 14px; }
+      .feat-check svg { width: 8px; height: 8px; }
+
+      .plan-btn { padding: 10px 12px; font-size: 11px; letter-spacing: .3px; }
+      .plan-badge { font-size: 8px; padding: 3px 7px; top: 10px; right: 10px; }
+
+      .card-accent-bar { height: 3px; }
 
       /* ── FOOTER ── */
       .footer-main { flex-direction: column; padding: 32px 20px; gap: 28px; }
@@ -1169,7 +1185,22 @@
       .call-side.show { max-width: 160px; }
     }
   
-    .plan-card:active .plan-btn { transform: translateY(-2px); }
+    /* ════════════════════════════════
+       VERY SMALL MOBILE (max-width: 360px)
+    ════════════════════════════════ */
+    @media (max-width: 360px) {
+      .pkg-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+      .plan-header { padding: 10px 9px 8px; }
+      .plan-body   { padding: 8px 9px; }
+      .plan-footer { padding: 6px 9px 11px; }
+      .plan-name   { font-size: 11.5px; }
+      .plan-price  { font-size: 16px; }
+      .duration-tab .dur-circle { width: 26px; height: 26px; }
+      .dur-num  { font-size: 8px; }
+      .plan-features li { font-size: 10px; }
+    }
+
+    
     .plan-card:active .plan-btn .btn-label { transform: translateX(-4px); }
     .plan-card:active .plan-btn .btn-arrows span { opacity: 1; transform: translateX(0); }
     .plan-card:active .plan-btn.primary-btn  { box-shadow: 0 8px 28px rgba(26,79,160,.4); }
