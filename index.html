@@ -6,7 +6,7 @@
   <title>Sri Kamakshi Jagan Cable Network</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="common.css">
   <style>
 :root {
       --navy:   #0b1f42;
@@ -861,33 +861,19 @@
       /* Show hamburger */
       .nav-hamburger { display: flex; }
 
-      /* Brand: stacked layout, name on top, then link icon, then logo */
+      /* Brand: compact side-by-side layout */
       .nav-brand {
-        gap: 4px;
+        gap: 8px;
         flex: 1;
         min-width: 0;
-        flex-direction: column;
-        align-items: center;
       }
-      .nav-brand-block { order: 1; gap: 2px; }
-      .nav-header-divider { order: 2; }
-      .railwire-block { order: 3; gap: 3px; }
-
+      .railwire-block { gap: 3px; }
       .railwire-logo-wrap {
         padding: 4px 8px;
         gap: 5px;
       }
       .railwire-logo-wrap img { height: 22px; }
-      .nav-header-divider {
-        width: auto;
-        height: auto;
-        background: none;
-      }
-      .nav-link-icon {
-        display: block;
-        width: 40px;
-        height: 28px;
-      }
+      .nav-header-divider { height: 44px; }
       .nav-brand-block { gap: 2px; }
       .nav-brand-name { font-size: 12px; line-height: 1.15; }
       .nav-brand-label { font-size: 9px; letter-spacing: 1.5px; }
@@ -967,19 +953,29 @@
           transparent 100%);
         margin: 0;
       }
-      /* Keep horizontal bar even after .linked class is added */
+      /* Keep horizontal bar, then morph into link-icon shape */
       .hero-vline.linked {
-        width: 140px;
-        height: 3px;
-        border-radius: 3px;
-        background: linear-gradient(to right,
-          transparent 0%,
-          var(--accent) 20%,
-          var(--accent) 80%,
-          transparent 100%);
-        transition: none;
+        width: 70px;
+        height: 52px;
+        border-radius: 50%;
+        background: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        transition: width .4s cubic-bezier(.22,1,.36,1),
+                    height .4s cubic-bezier(.22,1,.36,1),
+                    border-radius .4s ease,
+                    background .3s ease;
       }
-      .hero-vline .link-icon { display: none; }
+      .hero-vline.linked .link-icon {
+        display: flex;
+        opacity: 1;
+        transform: scale(1);
+      }
+      .hero-vline .link-icon svg {
+        width: 53px; height: 42px;
+      }
 
       /* Company name slides up from bottom */
       .hero-logo-right {
@@ -1120,27 +1116,8 @@
         </div>
         <span class="nav-brand-label">ISP</span>
       </div>
-      <!-- Vertical Divider / Link icon (mobile) -->
-      <div class="nav-header-divider">
-        <svg class="nav-link-icon" viewBox="0 0 110 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <clipPath id="navOverlap">
-              <rect x="40" y="16" width="24" height="48"/>
-            </clipPath>
-          </defs>
-          <g transform="rotate(-22, 72, 40)">
-            <rect x="50" y="11" width="43" height="59" rx="14" ry="14" fill="none" stroke="#f59e0b" stroke-width="10"/>
-          </g>
-          <g transform="rotate(22, 38, 40)">
-            <rect x="21" y="11" width="43" height="59" rx="14" ry="14" fill="none" stroke="#3b82f6" stroke-width="10"/>
-          </g>
-          <g clip-path="url(#navOverlap)">
-            <g transform="rotate(-22, 72, 40)">
-              <rect x="50" y="11" width="43" height="59" rx="14" ry="14" fill="none" stroke="#f59e0b" stroke-width="10"/>
-            </g>
-          </g>
-        </svg>
-      </div>
+      <!-- Vertical Divider -->
+      <div class="nav-header-divider"></div>
       <!-- Brand Name block -->
       <div class="nav-brand-block">
         <div class="nav-brand-name">Sri Kamakshi Jagan<br>Cable Network</div>
