@@ -541,6 +541,128 @@
       .speedtest-btn { font-size: 14px; padding: 15px 28px; }
     }
 
+    /* ── Speed Test Modal ── */
+    .speedtest-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(11,31,66,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+      padding: 20px;
+    }
+    .speedtest-modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .speedtest-modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(11,31,66,.35);
+      transform: translateY(16px) scale(.97);
+      transition: transform .25s ease;
+    }
+    .speedtest-modal-overlay.open .speedtest-modal {
+      transform: translateY(0) scale(1);
+    }
+    .speedtest-modal h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .speedtest-modal-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.4;
+    }
+    .speedtest-modal-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 32px; height: 32px;
+      border: none;
+      background: var(--light);
+      border-radius: 50%;
+      font-size: 20px;
+      line-height: 1;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, color .2s;
+    }
+    .speedtest-modal-close:hover {
+      background: var(--border);
+      color: var(--navy);
+    }
+    .speedtest-opt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      transition: all .2s;
+    }
+    .speedtest-opt:last-child { margin-bottom: 0; }
+    .speedtest-opt:hover {
+      border-color: var(--sky);
+      background: var(--light);
+      transform: translateY(-2px);
+    }
+    .speedtest-opt-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .speedtest-opt-label small {
+      display: block;
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 11.5px;
+      margin-top: 2px;
+    }
+    .speedtest-opt.recommended {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(245,158,11,.15);
+    }
+    .speedtest-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--navy);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
     /* ════════════════════════════════
        PACKAGES SECTION
     ════════════════════════════════ */
@@ -1568,7 +1690,7 @@
       <p class="speedtest-sub">Click below to test your download, upload &amp; ping speed.</p>
     </div>
 
-    <a href="https://www.speedtest.net/" target="_blank" rel="noopener noreferrer" class="speedtest-btn">
+    <a href="javascript:void(0)" onclick="openSpeedTestModal()" class="speedtest-btn">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
       </svg>
@@ -1579,6 +1701,16 @@
     </a>
 
   </section>
+
+  <!-- ════ SPEED TEST CHOICE MODAL ════ -->
+  <div class="speedtest-modal-overlay" id="speedTestModalOverlay" onclick="if(event.target===this) closeSpeedTestModal()">
+    <div class="speedtest-modal">
+      <button class="speedtest-modal-close" onclick="closeSpeedTestModal()" aria-label="Close">&times;</button>
+      <h2>Choose Speed Test</h2>
+      <p class="speedtest-modal-sub">Select the test that matches your device for the most accurate result.</p>
+      <div id="speedTestOptions"></div>
+    </div>
+  </div>
 
   <!-- ════ PACKAGES SECTION ════ -->
   <section class="packages" id="packages">
@@ -1828,6 +1960,41 @@
 
 
   <script>
+    /* ── Speed Test Modal ── */
+    function isMobileDevice() {
+      return /Android|iPhone|iPad|iPod|Mobile|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    }
+
+    function openSpeedTestModal() {
+      const mobile = isMobileDevice();
+      const optionsHtml = `
+        <a class="speedtest-opt ${!mobile ? 'recommended' : ''}" href="https://railtel.speedtestcustom.com" target="_blank" rel="noopener noreferrer">
+          <div class="speedtest-opt-icon">&#128187;</div>
+          <div class="speedtest-opt-label">Desktop / Laptop${!mobile ? '<span class="speedtest-badge">Recommended</span>' : ''}<small>Best for wired &amp; Wi-Fi connections on PC</small></div>
+        </a>
+        <a class="speedtest-opt ${mobile ? 'recommended' : ''}" href="https://fast.com" target="_blank" rel="noopener noreferrer">
+          <div class="speedtest-opt-icon">&#128241;</div>
+          <div class="speedtest-opt-label">Mobile${mobile ? '<span class="speedtest-badge">Recommended</span>' : ''}<small>Quick test for phones &amp; tablets</small></div>
+        </a>
+        <a class="speedtest-opt" href="https://www.speedtest.net/" target="_blank" rel="noopener noreferrer">
+          <div class="speedtest-opt-icon">&#127760;</div>
+          <div class="speedtest-opt-label">Desktop / Mobile<small>General test, works on any device</small></div>
+        </a>
+      `;
+      document.getElementById('speedTestOptions').innerHTML = optionsHtml;
+      document.getElementById('speedTestModalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSpeedTestModal() {
+      document.getElementById('speedTestModalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSpeedTestModal();
+    });
+
     /* ── Hero vline → link icon morph ──
        Line grows at 1.8s, sides slide in at 2.2s (+0.75s = done ~3s)
        Morph triggers at 3.2s so it feels like a natural conclusion.
