@@ -6,7 +6,7 @@
   <title>Sri Kamakshi Jagan Cable Network</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="index.css">
   <style>
 :root {
       --navy:   #0b1f42;
@@ -923,19 +923,20 @@
         min-height: 100svh;
         justify-content: center;
       }
-      /* Stack logo-mark vertically */
+      /* Stack logo-mark vertically, company name first */
       .logo-mark {
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: center;
         gap: 0;
       }
-      /* Railwire logo slides down from top */
+      /* Railwire logo (now visually last) slides up from bottom */
       .hero-logo-left {
         padding-right: 0;
-        padding-bottom: 16px;
+        padding-top: 16px;
+        padding-bottom: 0;
         opacity: 0;
-        transform: translateY(-30px);
-        animation: slideFromTop .75s cubic-bezier(.22,1,.36,1) 2.2s forwards;
+        transform: translateY(30px);
+        animation: slideFromBottom .75s cubic-bezier(.22,1,.36,1) 2.2s forwards;
       }
       .hero-logo-left img { height: 50px; }
       .hero-logo-left .logo-text-fallback { font-size: 28px; }
@@ -977,13 +978,14 @@
         width: 53px; height: 42px;
       }
 
-      /* Company name slides up from bottom */
+      /* Company name (now visually first) slides down from top */
       .hero-logo-right {
         padding-left: 0;
-        padding-top: 18px;
+        padding-bottom: 16px;
+        padding-top: 0;
         opacity: 0;
-        transform: translateY(30px);
-        animation: slideFromBottom .75s cubic-bezier(.22,1,.36,1) 2.2s forwards;
+        transform: translateY(-30px);
+        animation: slideFromTop .75s cubic-bezier(.22,1,.36,1) 2.2s forwards;
       }
       .hero-logo-right .company-name {
         font-size: clamp(22px, 7vw, 30px);
@@ -1550,13 +1552,10 @@
 
     /* ── Hero vline → link icon morph ──
        Line grows at 1.8s, sides slide in at 2.2s (+0.75s = done ~3s)
-       Morph triggers at 3.2s so it feels like a natural conclusion.
-       On mobile (<640px) we keep the horizontal line, skip the morph. */
+       Morph triggers at 3.2s so it feels like a natural conclusion. */
     setTimeout(() => {
-      if (window.innerWidth > 640) {
-        const vline = document.getElementById('heroVline');
-        if (vline) vline.classList.add('linked');
-      }
+      const vline = document.getElementById('heroVline');
+      if (vline) vline.classList.add('linked');
     }, 3200);
 
     /* ── Footer year ── */
