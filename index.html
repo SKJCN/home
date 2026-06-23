@@ -1322,7 +1322,7 @@
           </ul>
         </div>
         <div class="plan-footer">
-          <a href="packages.html" style="text-decoration:none;display:block;"><button class="plan-btn primary-btn">Get Started →</button></a>
+          <button class="plan-btn primary-btn">Get Started →</button>
         </div>
       </div>
 
@@ -1369,7 +1369,7 @@
           </ul>
         </div>
         <div class="plan-footer">
-          <a href="packages.html" style="text-decoration:none;display:block;"><button class="plan-btn accent-btn">Get Started →</button></a>
+          <button class="plan-btn accent-btn">Get Started →</button>
         </div>
       </div>
 
@@ -1411,7 +1411,7 @@
           </ul>
         </div>
         <div class="plan-footer">
-          <a href="packages.html" style="text-decoration:none;display:block;"><button class="plan-btn outlined-btn">Get Started →</button></a>
+          <button class="plan-btn outlined-btn">Get Started →</button>
         </div>
       </div>
 
@@ -1585,17 +1585,6 @@
 
   <!-- ════ STICKY CALL BAR ════ -->
   <div class="call-bar" id="callBar">
-    <div class="call-side call-left" id="callLeft">
-      <div class="call-side-inner">
-        <a class="call-num-link" href="tel:9908624367">
-          <div class="call-num-inner">
-            <span class="call-dot"></span>
-            <span>9908624367</span>
-          </div>
-        </a>
-        <div class="call-divider-wrap show" id="divLeft"><div class="call-divider-line"></div></div>
-      </div>
-    </div>
     <div class="call-island">
       <div class="call-icon-wrap" id="callIconWrap">
         <svg viewBox="0 0 24 24" stroke-width="2.3">
@@ -1606,10 +1595,9 @@
     <div class="call-side call-right" id="callRight">
       <div class="call-side-inner">
         <div class="call-divider-wrap show" id="divRight"><div class="call-divider-line"></div></div>
-        <a class="call-num-link" href="tel:6302787044">
+        <a class="call-num-link" href="tel:9908624367">
           <div class="call-num-inner">
-            <span class="call-dot"></span>
-            <span>6302787044</span>
+            <span>9908624367</span>
           </div>
         </a>
       </div>
@@ -1648,10 +1636,8 @@
   <script>
     /* ── Sticky call bar ── */
     const callBar      = document.getElementById('callBar');
-    const callLeft     = document.getElementById('callLeft');
     const callRight    = document.getElementById('callRight');
     const callIconWrap = document.getElementById('callIconWrap');
-    const divLeft      = document.getElementById('divLeft');
     const divRight     = document.getElementById('divRight');
     let numbersVisible = false;
     let scrollTimer    = null;
@@ -1665,14 +1651,14 @@
     function expandNumbers() {
       if (numbersVisible) return;
       numbersVisible = true;
-      callLeft.classList.add('show');  callRight.classList.add('show');
-      divLeft.classList.add('show');   divRight.classList.add('show');
+      callRight.classList.add('show');
+      divRight.classList.add('show');
     }
     function collapseNumbers() {
       if (!numbersVisible) return;
       numbersVisible = false;
-      callLeft.classList.remove('show');  callRight.classList.remove('show');
-      divLeft.classList.remove('show');   divRight.classList.remove('show');
+      callRight.classList.remove('show');
+      divRight.classList.remove('show');
     }
     function isFooterVisible() {
       const footer = document.querySelector('footer');
