@@ -550,9 +550,6 @@
     .footer-chip svg { width: 14px; height: 14px; stroke: #93b4e8; }
 
     /* ════════════════════════════════
-       FLOATING CALL BAR
-    ════════════════════════════════ */
-/* ════════════════════════════════
        STICKY CALL BAR — Glossy Black
     ════════════════════════════════ */
     .call-bar {
@@ -1892,12 +1889,6 @@
         </svg>
         +91 99086 24367
       </li>
-      <li>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
-        </svg>
-        +91 63027 87044
-      </li>
     </ul>
   </div>
 
@@ -2186,42 +2177,26 @@
   </div>
 </div>
 
-<!-- ════ FLOATING CALL BAR ════ -->
-<div class="call-bar" id="callBar">
-<div class="call-side call-left" id="callLeft">
-<div class="call-side-inner">
-<a class="call-num-link" href="tel:9908624367">
-<div class="call-num-inner">
-<span class="call-dot"></span>
-<span>9908624367</span>
-</div>
-</a>
-<div class="call-divider-wrap show" id="divLeft">
-<div class="call-divider-line"></div>
-</div>
-</div>
-</div>
-<div class="call-island">
-<div class="call-icon-wrap" id="callIconWrap">
-<svg stroke-width="2.3" viewbox="0 0 24 24">
-<path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-</div>
-</div>
-<div class="call-side call-right" id="callRight">
-<div class="call-side-inner">
-<div class="call-divider-wrap show" id="divRight">
-<div class="call-divider-line"></div>
-</div>
-<a class="call-num-link" href="tel:6302787044">
-<div class="call-num-inner">
-<span class="call-dot"></span>
-<span>6302787044</span>
-</div>
-</a>
-</div>
-</div>
-</div>
+  <!-- ════ STICKY CALL BAR ════ -->
+  <div class="call-bar" id="callBar">
+    <div class="call-island">
+      <div class="call-icon-wrap" id="callIconWrap">
+        <svg viewBox="0 0 24 24" stroke-width="2.3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="call-side call-right" id="callRight">
+      <div class="call-side-inner">
+        <div class="call-divider-wrap show" id="divRight"><div class="call-divider-line"></div></div>
+        <a class="call-num-link" href="tel:9908624367">
+          <div class="call-num-inner">
+            <span>9908624367</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 <script>
     /* ── Hamburger menu ── */
     (function() {
@@ -2451,16 +2426,13 @@
       });
     }, { passive: true });
 
-    /* ── Floating call bar ── */
+    /* ── Sticky call bar ── */
     const callBar      = document.getElementById('callBar');
-    const callLeft     = document.getElementById('callLeft');
     const callRight    = document.getElementById('callRight');
     const callIconWrap = document.getElementById('callIconWrap');
-    const divLeft      = document.getElementById('divLeft');
     const divRight     = document.getElementById('divRight');
     let numbersVisible = false;
     let scrollTimer    = null;
-    let ringInterval   = null;
 
     function ringPhone() {
       callIconWrap.classList.remove('ringing');
@@ -2471,42 +2443,30 @@
     function expandNumbers() {
       if (numbersVisible) return;
       numbersVisible = true;
-      callLeft.classList.add('show'); callRight.classList.add('show');
-      divLeft.classList.add('show');  divRight.classList.add('show');
+      callRight.classList.add('show');
+      divRight.classList.add('show');
     }
     function collapseNumbers() {
       if (!numbersVisible) return;
       numbersVisible = false;
-      callLeft.classList.remove('show'); callRight.classList.remove('show');
-      divLeft.classList.remove('show');  divRight.classList.remove('show');
+      callRight.classList.remove('show');
+      divRight.classList.remove('show');
+    }
+    function isFooterVisible() {
+      const footer = document.querySelector('footer');
+      return footer ? footer.getBoundingClientRect().top < window.innerHeight : false;
     }
 
     setTimeout(() => {
       callBar.classList.add('entered');
-      setTimeout(() => {
-        expandNumbers();
-        ringPhone();
-        ringInterval = setInterval(ringPhone, 2000);
-      }, 700);
+      setTimeout(() => { expandNumbers(); ringPhone(); setInterval(ringPhone, 2500); }, 750);
     }, 2000);
-
-    function isFooterVisible() {
-      const footer = document.querySelector('footer');
-      if (!footer) return false;
-      return footer.getBoundingClientRect().top < window.innerHeight;
-    }
 
     window.addEventListener('scroll', () => {
       if (isFooterVisible()) {
-        // Hide call bar entirely when footer is in view
-        callBar.classList.remove('entered');
-        collapseNumbers();
-        clearTimeout(scrollTimer);
+        callBar.classList.remove('entered'); collapseNumbers(); clearTimeout(scrollTimer);
       } else {
-        // Show call bar when footer is not visible
-        callBar.classList.add('entered');
-        collapseNumbers();
-        clearTimeout(scrollTimer);
+        callBar.classList.add('entered'); collapseNumbers(); clearTimeout(scrollTimer);
         scrollTimer = setTimeout(expandNumbers, 800);
       }
     }, { passive: true });
