@@ -98,6 +98,21 @@
     border-radius:6px;
   }
 
+  .rupee-symbol{
+    width:154px;
+    height:94px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:56px;
+    color:var(--teal-deep);
+    background:#EEF6F4;
+    border-radius:6px;
+    line-height:1;
+  }
+
   .caption-row{
     display:flex;
     flex-wrap:wrap;
@@ -214,7 +229,7 @@
     <!-- Box 3: Wifi Payments (independent, no shared state) -->
     <div class="card" id="box-wifi-payments">
       <a class="flex-box" href="https://skjcn.github.io/wifipayments/" target="_blank" rel="noopener noreferrer">
-        <img class="img-money" src="money.png" alt="Wifi Payments">
+        <span class="rupee-symbol" role="img" aria-label="Wifi Payments">₹</span>
       </a>
       <div class="caption-row">
         <span class="caption">Wifi Payments</span>
@@ -239,7 +254,7 @@
     const shareData = {
       title: "Wifi Packages - Sri Kamakshi Jagan Cable Network",
       text: "Check out Wifi Packages from Sri Kamakshi Jagan Cable Network",
-      url: "https://skjcn.github.io/home/"
+      url: "https://skjcn.github.io/wifi/"
     };
 
     if (navigator.share){
